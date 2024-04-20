@@ -1,0 +1,27 @@
+function files = Top7BSAfiles
+files = [
+      "20231127/aA.txt"
+    "20231127/bA.txt"
+    "20231127/cA.txt"
+    "20231127/dA.txt"
+    "20231127/eA.txt"
+    "20231127/fA.txt"
+    "20231128/gA.txt"
+    "20231128/gB.txt"
+    "20231128/hA.txt"
+    "20231128/iA.txt"
+    "20231128/jA.txt"
+    "20231128/jB.txt"
+    "20231128/kA.txt"
+    "20231128/lA.txt"
+    % "20231129/mA.txt" % Strange behaviour
+    "20231129/mB.txt"
+    "20231129/mC.txt"
+    "20231129/nA.txt"
+    "20231129/oA.txt"
+    "20231129/pA.txt"
+    "20231129/qA.txt"
+    "20231129/rA.txt"
+    "20231129/sA.txt"
+    "20231129/tA.txt"
+    "20231129/uA.txt"];

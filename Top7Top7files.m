@@ -1,0 +1,22 @@
+function files = Top7Top7files
+  files = [
+    "20231106/aA.txt"
+    "20231107/aA.txt"
+    "20231107/bA.txt"
+    "20231107/cA.txt"
+    "20231107/dA.txt"
+    "20231107/eA.txt"
+    "20231107/fA.txt"
+    "20231107/gA.txt"
+    "20231107/hA.txt"
+    "20240105/bA.txt"
+    "20240105/cA.txt"
+    "20240105/dA.txt"
+    "20240105/eA.txt"
+    "20240106/dA.txt"
+    "20240106/eA.txt"
+    "20240106/fA.txt"
+    "20240106/gA.txt"
+    "20240106/hA.txt"
+    "20240106/iA.txt"
+    "20240106/jA.txt"];
