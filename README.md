@@ -6,7 +6,7 @@ The paper was submitted to Nature on 2024-04-13.
 The paper analyses results from optical tweezers experiments with unfoldinng and refolding the synthetic protein Top7.
 
 
-Due to file size limitations only 3 of 160 data folders are included. They should be enough to test Tpo7the automatic rip and zip finding algorithm.
-Data in Top7data.mat are sufficient to recreate (nearly) all figures and tables in the paper and Supplementary material.
+Due to file size limitations only 3 of 160 data folders are included as zip files 20220718, 20230623, and 20230623. They should be enough to test Tpo7the automatic rip and zip finding algorithm.
+The Matlab tables in Top7tables.mat are sufficient to recreate nearly all figures and tables in the paper and Supplementary material.
 
 See Readme.doxc for details
