@@ -1,7 +1,7 @@
 function tbl = Table1(Tout)
 % Data for Table1 in main paper.
 % Prints tab-sepatated table that can be copied into a Word table
-% In Word: Insert > Table > Insert Table... 
+% in Word: Insert > Table > Insert Table... 
 %   6 Columns, 23 Rows, Autofit to contents
 %   Mark table and paste
 %   Some post-processing in Word required (e.g. subscript/superscript)

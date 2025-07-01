@@ -3,7 +3,7 @@ function tbl = TableS4
 % Input: Tout 
 % Prints tab-sepatated table that can be copied into a Word table
 % In Word: Insert > Table > Insert Table... 
-%   5 Columns, 8 Rows, Autofit to contents
+%   5 Columns, 9 Rows, Autofit to contents
 %   Mark table and paste
 
   load Tables Tout;

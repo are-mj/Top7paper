@@ -1,5 +1,10 @@
 function TableS6
 % Bell model results for the exoeriments with solutes Top7, BSA and FoxP1
+% Prints tab-sepatated table that can be copied into a Word table
+% in Word: Insert > Table > Insert Table... 
+%   12 Columns, 12 Rows, Autofit to contents
+%   Mark table and paste
+%   Some post-processing in Word required (e.g. subscript/superscript)
 
   load Tables.mat TPTop7Top7 TPTop7BSA TPTop7FOXP1
   load Tables.mat TRTop7Top7 TRTop7BSA TRTop7FOXP1

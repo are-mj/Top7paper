@@ -1,4 +1,10 @@
 function TableS2
+% Data for TableS2.
+% Prints tab-sepatated table that can be copied into a Word table
+% in Word: Insert > Table > Insert Table... 
+%   7 Columns, 19 Rows, Autofit to contents
+%   Mark table and paste
+%   Some post-processing in Word required (e.g. subscript/superscript)
   load Tables.mat TPTop7 TPTop7Top7 TPTop7BSA TPTop7FOXP1
 
   Ttext = ["3-7°C","7-14°C","14-20°C","20-30°C"];

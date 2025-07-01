@@ -1,4 +1,11 @@
 function TableS5
+% Data for TableS5
+% Prints tab-sepatated table that can be copied into a Word table
+% in Word: Insert > Table > Insert Table... 
+%   8 Columns, 19 Rows, Autofit to contents
+%   Mark table and paste
+%   Some post-processing in Word required (e.g. subscript/superscript)
+
   load Tables.mat TP TR Tout
 
   DGkin = Tout.DGkin;
