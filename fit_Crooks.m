@@ -1,41 +1,46 @@
-function [DG,DGstd] = fit_Crooks(Tun,Tre,ucases,rcases,Clusters,plotting)
+function [DG,DGci] = fit_Crooks(Tun,Tre,selP,selR,Clusters,texts,plotting)
 % Calculate DG from unfolding and refolding parameters dx and log10k0 
 % Unfolding for high and low force clusters, Refolding for all data.
 % DG equals the work at the point where unfolding and refolding work are
 % equal, according to the Crooks fluctuation theorem
 % Output:
 %   DG:    Crooks DeltaG
-%   DGstd: Standard deviation of DG calculated by MonteCarlo simulation
-%          Time-consuming. Calculation skipped if nargout < 3
+%   DGci:  Confidence interval calculated by bootstrapping
 
 % 20240209: Specified analytical search range in match.
+% 20250529: Changed from standard deviation ti 95% confidence interval
 
+% Do calculations and plotting in kcal/kmol
 conversion = 0.1439326;  % Energy units kcal/kmol 
-% conversion = 1;           % Energy units pN×nm
+% Convert outputs DG and DGci back to pN⋅nm for consistency
+% This somwhat awkward procedure has historical reasons. 
 
   if nargin < 5
     plotting = 0;
   end
   P = 0.65;L0 = 29.28;  % WLC parameters
 
-  Tmean = mean(Tun.Temperature(ucases.selected));
+  Tmean = mean(Tun.Temperature(selP));
   T = Tmean + 273.15;
 
   % Refold:
-  f_refold = Tre.Force(rcases.selected);
-  deltax_refold = Tre.Deltax(rcases.selected);
+  f_refold = Tre.Force(selR);
+  bad = f_refold < 2;
+  f_refold(bad) = [];  % Skip unrealistic values
+  deltax_refold = -Tre.Deltax(selR);
+  deltax_refold(bad) = []; 
   Ws = stretchwork(f_refold,deltax_refold,P,T,L0); % Should we subtract Ws here?
   Wr = f_refold.*deltax_refold - Ws;
   Wr_kcal = Wr*conversion;  % Convert energy units
   pdr = fitdist(Wr_kcal,'normal');   % Normal distribution
 
   % Unfold:
-  f_unfold = Tun.Force(ucases.selected);
-  deltax_unfold = Tun.Deltax(ucases.selected);
+  f_unfold = Tun.Force(selP);
+  deltax_unfold = Tun.Deltax(selP);
 
-  tbl = Tun;
-  selected = ucases.selected;
-  n = sum(Clusters);
+  % tbl = Tun;
+  % selected = selP;
+  n = sum(Clusters(selP,:));
   nclusters = find(n>8);    % Clusters with more that 8 elements  
 
   % Tmean = mean(tbl.Temperature(selected),'omitnan');
@@ -46,42 +51,43 @@ conversion = 0.1439326;  % Energy units kcal/kmol
   dxu = cell(ncl,1);
   Wu = cell(ncl,1);
   pdu = cell(ncl,1);
-  DG = zeros(2,1);
-  DGstd = zeros(2,1);
+  DG = zeros(3,1);
+  DGci = zeros(3,2);
   if plotting
     hh = [];
     nexttile;
     h = plot(pdr);hold on
     hh = [hh,h];
-    colors = [0 0 1;0.5 0.2 0.5;0.3 0.6 0.6];
+    colors = [0 0 1;0.5 0.2 0.5;0.3 0.6 0.6;.5*[1 1 1]];
     h(1).Color = colors(1,:);
-    % legtext = {'Refolding data','Normal distribution'};
-    legtext = "Refolding data";
+    % legtext = {'','Normal distribution'};
+    legtext = "Refolding";
   end
-  for cl = find(n>8)  % Nonzero parameter columns
-    fu{cl} = f_unfold(Clusters(ucases.selected,cl));
-    dxu{cl} = deltax_unfold(Clusters(ucases.selected,cl));
+  for cl = find(n>9)  % Nonzero parameter columns
+    fu{cl} = f_unfold(Clusters(selP,cl));
+    dxu{cl} = deltax_unfold(Clusters(selP,cl));
     Ws = stretchwork(fu{cl},dxu{cl},P,T,L0);
     Wu{cl} = (fu{cl}.*dxu{cl}-Ws);        % Net work
     Wu{cl} = Wu{cl}*conversion;  % Convert energy units
     pdu{cl} = fitdist(Wu{cl},'normal');
-    DG(cl) = match(pdr,pdu{cl});
+    DG(cl) = match(pdr,pdu{cl})/conversion;
     if nargout > 1
       % Perform this time-consuming calculation only if needed:
-      DGstd(cl) = Crooks_std(pdu{cl},pdr);
+      DGci(cl,:) = Crooks_ci(pdu{cl},pdr)/conversion;
     end
     if plotting
       h = plot(pdu{cl});
       hh = [hh,h];
       h(1).Color = colors(cl+1,:);
-      if cl == 1
-        s = 'Low force unfolding';
-      else
-        s = 'High force unfolding';
-      end
+      s = sprintf('Cluster %d',cl);
+      % if cl == 1
+      %   s = 'Low force unfolding';
+      % else
+      %   s = 'High force unfolding';
+      % end
       % legtext = [legtext,{s,'Normal distribution'}];
       legtext = [legtext;s];
-      title(ucases.text)
+      title(texts)
       xlabel('');ylabel(''); % remove fitdist's standard labels
     end
   end
@@ -92,7 +98,7 @@ conversion = 0.1439326;  % Energy units kcal/kmol
       ylim([0,0.3]);
     end
     set(gca,'xtick',[3,10,30,100])
-    legend(hh(2:2:6),legtext);
+    legend(hh(2:2:8),legtext);
   end
 end
 
@@ -105,14 +111,23 @@ end
 function DG = match(pd1,pd2)
 % Find the point where two normal distributions are equal
   fun = @(x) pdfun(pd1,x)-pdfun(pd2,x);
-  [DG,~,exitflag] = fzero(fun,[pd1.mu,pd2.mu]);
+  try
+    [DG,~,exitflag] = fzero(fun,[pd1.mu,pd2.mu]);
+  catch  % No crossong point between distribution tops
+    [DG,~,exitflag] = fzero(fun,[pd1.mu-pd1.sigma,pd2.mu]);
+  %   warning('Matching distributions may not be correct')
+  %   xpts = [pd1.mu-2*pd1.sigma,pd1.mu+2*pd1.sigma,pd2.mu-2*pd1.sigma, ...
+  %     pd2.mu+2*pd1.sigma];
+  %   x = linspace(min(xpts),max(xpts));
+  %   figure;plot(x,pdfun(pd1,x),x,pdfun(pd2,x)); xline([pd1.mu,pd2.mu])
+  end
   if exitflag < 0
     warning('fzero problem')
   end
 end
 
-function DGstd = Crooks_std(pdu,pdr)
-% Monte Carlo calculation of the std of the intersection of pdr and pdu
+function ci = Crooks_ci(pdu,pdr)
+% Monte Carlo calculation of the confidence interval of the intersection of pdr and pdu
   
   pdu_ci = pdu.paramci;
   pdu_mu_std = pdu.mu - pdu_ci(1,1);
@@ -122,11 +137,10 @@ function DGstd = Crooks_std(pdu,pdr)
   pdr_mu_std = pdr.mu - pdr_ci(1,1);
   pdr_sigma_std = pdr.sigma - pdr_ci(1,2);
 
-  n = 10000;
-  n = 100;  % Faster, but less accurate
+  nsamples = 1000; 
 
-  DG = zeros(n,1);
-  for i = 1:n
+  DG = zeros(nsamples,1);
+  for i = 1:nsamples
     try  % normrnd may occasionally return negative values
          % This will crash makedist
       umu = normrnd(pdu.mu,pdu_mu_std);
@@ -144,10 +158,11 @@ function DGstd = Crooks_std(pdu,pdr)
     end
   end
   DG(isnan(DG)) = [];
-  DGstd = std(DG);
+  pd = fitdist(DG,'normal');
+  ci = norminv([0.025 0.975],pd.mu,pd.sigma);
 end
 
-function W = stretchwork(force,deltax,P,T,L0,simple)
+function W = stretchwork(force,deltax,P,T,L0)
 % Calcuate the work done stretching to the unfolding force
 %
 % Input:
@@ -158,7 +173,7 @@ function W = stretchwork(force,deltax,P,T,L0,simple)
 % simple: Do not use the improved fit to WLC
 
   if nargin < 6
-    simple = 0;
+    simple = 1;
   end
   x0 = 0;
   W = zeros(size(force));

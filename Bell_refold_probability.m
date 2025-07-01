@@ -15,6 +15,6 @@ function p = Bell_refold_probability(theta,F,T,Fdotmean)
 
   % Unfolding rate:
   kR = k0*exp(-beta*F*dx);
-  kR_fdot = kR/abs(Fdotmean);
-  p = kR_fdot.*exp(-kR_fdot/(beta*dx));
+  alpha = kR/abs(Fdotmean);
+  p = alpha.*exp(-alpha/(beta*dx));
 end

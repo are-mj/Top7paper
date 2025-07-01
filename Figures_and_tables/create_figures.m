@@ -1,0 +1,13 @@
+function create_figures
+Fig1; drawnow 
+Fig2A; drawnow
+FigS2; drawnow;      
+FigS3; drawnow;        
+FigS4B; drawnow;      
+FigS5; drawnow;       
+FigS6; drawnow;       
+FigS7; drawnow; 
+FigS8; drawnow; 
+FigS9; drawnow;             
+Fig2A; drawnow;  
+FigS10; drawnow;           
