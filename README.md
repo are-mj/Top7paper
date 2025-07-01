@@ -4,6 +4,6 @@ Matlab m-files and sample experiment data files for paper
 Camila Graziele Corrêa1, Are Mjaavatten, Javiera Martínez Bilbao, Karina New, Steven Smith, 
 Maximiliano F. Figueroa, and Christian A.M. Wilson.
 
-The paper analyses results from optical tweezers experiments with unfoldinng and refolding the synthetic protein Top7. The paper is based on the analysis of 10789 unfolding events (rips) and 11114 refolding events (zips) from 239 experiment files.
+The paper analyses results from optical tweezers experiments with unfoldinng and refolding of the synthetic protein Top7. The paper is based on the analysis of 10789 unfolding events (rips) and 11114 refolding events (zips) from 239 experiment files.
 A few sample files are given in Experiment_postprocessing/SampleExperiments.zip.  The full set of experiment files (abour 3GB) is available from the authors. 
 
