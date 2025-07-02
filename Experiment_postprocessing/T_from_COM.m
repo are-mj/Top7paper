@@ -37,7 +37,7 @@ function [T,instrument] = T_from_COM(file)
     end
     if contains(lines{j},'Instrument name')
       [~,pos] = regexp(lines{j},'Instrument name =');
-      instrument = strtrim(lines{j}(pos+1:numel(lines{j})));
+      instrument = string(strip(lines{j}(pos+1:numel(lines{j}))));
     end    
   end
   T = round(mean(TB,'omitnan'),2);
