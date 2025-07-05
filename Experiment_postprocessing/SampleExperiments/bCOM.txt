@@ -1,0 +1,1112 @@
+Instrument name = Tim's Gift 845-845 nm
+*****Calibration values *****
+TrapA Temperature Fudge	0.999110
+TrapB Temperature Fudge	1.000759
+SUM Responsivity A	259.000000
+SUM Responsivity B	283.000000
+SUM Reflection A	0.084000
+SUM Reflection B	0.081000
+Force/Temp coeff	0.000000
+TrapA Force Sensitivity	0.020100	0.019900	0.025500
+TrapB Force Sensitivity	0.018600	0.019000	0.025500
+TrapA Lever Sensitivity	7450.000000	7897.000000	0.000000
+TrapB Lever Sensitivity	7450.000000	8269.000000	0.000000
+Motor Threshold	45	45	55
+*****Initial Preference Settings*****
+ForceRateDiv	1
+ForceGain	32
+PosRateDivA	3
+PosRateDivB	3
+PositionGainA	32
+PositionGainB	32
+GotoSpeedX	11
+GotoSpeedY	11
+GotoSpeedZ	5
+MaxDataFileSize	40000000
+HopDistance	6
+P4_RampRateDiv	40
+DriftTracker	0
+*CycleCount______	1
+*A_PsdX__________	0
+*A_PsdY__________	0
+*A_PsdSum________	0
+*A_Iris__________	0
+*A_LeverX________	0
+*A_LeverY________	0
+*A_LeverSum______	0
+*B_PsdX__________	0
+*B_PsdY__________	0
+*B_PsdSum________	0
+*B_Iris__________	0
+*B_LeverX________	0
+*B_LeverY________	0
+*B_LeverSum______	0
+*A_Temperature___	0
+*B_Temperature___	0
+*X_force_________	1
+*Y_force_________	1
+*Z_force_________	1
+*Tension_________	0
+*A_dist-X________	0
+*A_dist-Y________	1
+*B_dist-X________	0
+*B_dist-Y________	1
+*(A+B)/2_distY___	0
+*Motor_X_________	0
+*Motor_Y_________	0
+*Motor_Z_________	0
+*MotorVel_X______	0
+*MotorVel_Y______	0
+*MotorVel_Z______	0
+*A_trapPIC_Err___	0
+*B_trapPIC_Err___	0
+*comPIC_Err______	0
+*Optional________	0
+*dataWriteFlag___	0
+*Motor_CycleCount	0
+*time(sec)_______	0
+*Status__________	1
+*A-forceX________	0
+*B-forceX________	0
+*A-forceY________	0
+*B-forceY________	0
+*Null____________	0
+samples/line_HI	400
+samples/line_LO	20
+goto0	8388327	8388512	8388608
+goto1	8388432	8388245	8388615
+goto2	8366954	8413218	8388679
+goto3	8364792	8362138	8389493
+goto4	8319112	8479416	8391367
+goto5	8303215	8310746	8390568
+goto6	8406408	8393614	8388532
+goto7	0	0	0
+goto8	0	0	0
+goto9	8388608	8388608	8388608
+yourXYZint	123	456	789
+MaxForceLimit	40.000000
+MinForceLimit	2.000000
+P4_RampStepSize	7.000000
+PullRate_nm/s	100.000000
+refoldTime	0.000000
+unfoldTime	0.000000
+LoadRate_pN/s	8.000000
+constForce1	7.400000
+constForce2	7.500000
+yourFloat	10.000000
+yourXYZfloat	1.000000	2.000000	3.000000
+*****End Initial Preference Settings*****
+
+Zero-Force Offsets (pN)  0.161561	0.573553	47.094509
+1777	trapA_Empty_PSD_Sum = 15289
+        trapB_Empty_PSD_Sum = 15455
+        trapA_Empty_Iris = 16253
+        trapB_Empty_Iris = 14422
+        trapA_Full_PSD_Sum = 15207
+        trapB_Full_PSD_Sum = 15418
+        trapA_Full_Iris = 16207
+        trapB_Full_Iris* = 14364
+8677	Start P4 pulling protocol 
+25357	   minForce-limit
+42697	   maxForce-limit
+59917	   minForce-limit
+78997	   maxForce-limit
+98257	   minForce-limit
+117577	   maxForce-limit
+136717	   minForce-limit
+154897	   maxForce-limit
+173017	   minForce-limit
+192277	   maxForce-limit
+211477	   minForce-limit
+229657	   maxForce-limit
+247897	   minForce-limit
+266857	   maxForce-limit
+286117	   minForce-limit
+305377	   maxForce-limit
+324577	   minForce-limit
+343057	   maxForce-limit
+361417	   minForce-limit
+379597	   maxForce-limit
+397897	   minForce-limit
+416197	   maxForce-limit
+434497	   minForce-limit
+452857	   maxForce-limit
+471157	   minForce-limit
+487117	temperatureA = 4.940	temperatureB = 4.268
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15279	TrapBPsdSum = 15431
+     TrapALeverSum = 15744	TrapBLeverSum = 11225
+489577	   maxForce-limit
+507517	   minForce-limit
+526297	   maxForce-limit
+545617	   minForce-limit
+564817	   maxForce-limit
+584137	   minForce-limit
+603517	   maxForce-limit
+622117	Start P1 pulling protocol 
+623917	   minForce-limit
+647557	   maxForce-limit
+670897	   minForce-limit
+693397	   maxForce-limit
+715717	   minForce-limit
+738997	   maxForce-limit
+762457	   minForce-limit
+785917	   maxForce-limit
+809377	   minForce-limit
+832717	   maxForce-limit
+856237	   minForce-limit
+879817	   maxForce-limit
+902977	   minForce-limit
+926257	   maxForce-limit
+949537	   minForce-limit
+967177	temperatureA = 4.938	temperatureB = 4.268
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15292	TrapBPsdSum = 15447
+     TrapALeverSum = 15741	TrapBLeverSum = 11230
+972817	   maxForce-limit
+996277	   minForce-limit
+1019797	   maxForce-limit
+1042417	   minForce-limit
+1064137	   maxForce-limit
+1086337	   minForce-limit
+1109497	   maxForce-limit
+1132957	   minForce-limit
+1141117	Start P4 pulling protocol 
+1166557	   maxForce-limit
+1185037	   minForce-limit
+1203397	   maxForce-limit
+1221937	   minForce-limit
+1241197	   maxForce-limit
+1260457	   minForce-limit
+1260637	Start P1 pulling protocol 
+1283137	   maxForce-limit
+1306597	   minForce-limit
+1330177	   maxForce-limit
+1353637	   minForce-limit
+1376197	   maxForce-limit
+1398817	   minForce-limit
+1422397	   maxForce-limit
+1446037	   minForce-limit
+1447237	temperatureA = 4.961	temperatureB = 4.283
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15225	TrapBPsdSum = 15409
+     TrapALeverSum = 15564	TrapBLeverSum = 11225
+1469497	   maxForce-limit
+1492897	   minForce-limit
+1518577	   maxForce-limit
+1538857	Start P4 pulling protocol 
+1539097	   minForce-limit
+1556557	   maxForce-limit
+1577617	   minForce-limit
+1597957	   maxForce-limit
+1617997	   minForce-limit
+1638757	   maxForce-limit
+1659337	   minForce-limit
+1679917	   maxForce-limit
+1700677	   minForce-limit
+1721437	   maxForce-limit
+1737877	Start P1 pulling protocol 
+1744237	   minForce-limit
+1770037	   maxForce-limit
+1795597	   minForce-limit
+1821277	   maxForce-limit
+1846597	   minForce-limit
+1870897	   maxForce-limit
+1895317	   minForce-limit
+1920517	   maxForce-limit
+1927296	temperatureA = 4.959	temperatureB = 4.289
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15288	TrapBPsdSum = 15433
+     TrapALeverSum = 15746	TrapBLeverSum = 11237
+1945597	   minForce-limit
+1947697	Start P4 pulling protocol 
+1970017	   maxForce-limit
+1991437	   minForce-limit
+2012737	   maxForce-limit
+2033797	   minForce-limit
+2054257	   maxForce-limit
+2074657	   minForce-limit
+2095657	   maxForce-limit
+2116597	   minForce-limit
+2137657	   maxForce-limit
+2158537	   minForce-limit
+2179357	   maxForce-limit
+2200117	   minForce-limit
+2220877	   maxForce-limit
+2241637	   minForce-limit
+2261317	   maxForce-limit
+2281537	   minForce-limit
+2302657	   maxForce-limit
+2323657	   minForce-limit
+2344749	   maxForce-limit
+2365597	   minForce-limit
+2385637	   maxForce-limit
+2405737	   minForce-limit
+2407297	temperatureA = 4.967	temperatureB = 4.292
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15233	TrapBPsdSum = 15426
+     TrapALeverSum = 15578	TrapBLeverSum = 11216
+2426677	   maxForce-limit
+2447377	   minForce-limit
+2467477	   maxForce-limit
+2487577	   minForce-limit
+2507617	   maxForce-limit
+2527837	   minForce-limit
+2547937	   maxForce-limit
+2567917	   minForce-limit
+2588077	   maxForce-limit
+2608477	   minForce-limit
+2628817	   maxForce-limit
+2648797	   minForce-limit
+2668837	   maxForce-limit
+2689117	   minForce-limit
+2710117	   maxForce-limit
+2731177	   minForce-limit
+2752477	   maxForce-limit
+2773357	   minForce-limit
+2794177	   maxForce-limit
+2815237	   minForce-limit
+2835397	   maxForce-limit
+2855797	   minForce-limit
+2876437	   maxForce-limit
+2887357	temperatureA = 4.974	temperatureB = 4.300
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15304	TrapBPsdSum = 15459
+     TrapALeverSum = 15699	TrapBLeverSum = 11224
+2896957	   minForce-limit
+2917957	   maxForce-limit
+2938957	   minForce-limit
+2959357	   maxForce-limit
+2979697	   minForce-limit
+3000697	   maxForce-limit
+3021877	   minForce-limit
+3042997	   maxForce-limit
+3104677	   minForce-limit
+3125437	   maxForce-limit
+3146137	   minForce-limit
+3166957	   maxForce-limit
+3188197	   minForce-limit
+3208717	   maxForce-limit
+3228997	   minForce-limit
+3250117	   maxForce-limit
+3271057	   minForce-limit
+3292117	   maxForce-limit
+3313297	   minForce-limit
+3334417	   maxForce-limit
+3355417	   minForce-limit
+3367417	temperatureA = 4.979	temperatureB = 4.300
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15311	TrapBPsdSum = 15460
+     TrapALeverSum = 15715	TrapBLeverSum = 11229
+3376417	   maxForce-limit
+3396937	   minForce-limit
+3417457	   maxForce-limit
+3438217	   minForce-limit
+3458977	   maxForce-limit
+3479737	   minForce-limit
+3500497	   maxForce-limit
+3520657	   minForce-limit
+3541177	   maxForce-limit
+3561937	   minForce-limit
+3582697	   maxForce-limit
+3603397	   minForce-limit
+3623317	   maxForce-limit
+3643417	   minForce-limit
+3664297	   maxForce-limit
+3685717	   minForce-limit
+3706297	   maxForce-limit
+3726217	   minForce-limit
+3746977	   maxForce-limit
+3767917	   minForce-limit
+3788797	   maxForce-limit
+3809857	   minForce-limit
+3830857	   maxForce-limit
+3847477	temperatureA = 4.985	temperatureB = 4.303
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15268	TrapBPsdSum = 15447
+     TrapALeverSum = 15643	TrapBLeverSum = 11230
+3851737	   minForce-limit
+3871777	   maxForce-limit
+3891697	   minForce-limit
+3912397	   maxForce-limit
+3933457	   minForce-limit
+3954577	   maxForce-limit
+3975577	   minForce-limit
+3996577	   maxForce-limit
+4017577	   minForce-limit
+4038697	   maxForce-limit
+4059517	   minForce-limit
+4080397	   maxForce-limit
+4101457	   minForce-limit
+4122517	   maxForce-limit
+4143277	   minForce-limit
+4163197	   maxForce-limit
+4183237	   minForce-limit
+4204134	   maxForce-limit
+4225357	   minForce-limit
+4246657	   maxForce-limit
+4267057	   minForce-limit
+4287697	   maxForce-limit
+4308637	   minForce-limit
+4327597	temperatureA = 5.001	temperatureB = 4.313
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15299	TrapBPsdSum = 15395
+     TrapALeverSum = 15769	TrapBLeverSum = 11227
+4329757	   maxForce-limit
+4350817	   minForce-limit
+4370977	   maxForce-limit
+4391317	   minForce-limit
+4412557	   maxForce-limit
+4433257	   minForce-limit
+4453837	   maxForce-limit
+4475077	   minForce-limit
+4496317	   maxForce-limit
+4517077	   minForce-limit
+4537777	   maxForce-limit
+4558477	   minForce-limit
+4579357	   maxForce-limit
+4600177	   minForce-limit
+4620217	   maxForce-limit
+4640317	   minForce-limit
+4661257	   maxForce-limit
+4682377	   minForce-limit
+4703574	   maxForce-limit
+4724857	   minForce-limit
+4746217	   maxForce-limit
+4767517	   minForce-limit
+4788637	   maxForce-limit
+4807657	temperatureA = 5.002	temperatureB = 4.327
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15262	TrapBPsdSum = 15429
+     TrapALeverSum = 15621	TrapBLeverSum = 11212
+4809817	   minForce-limit
+4830937	   maxForce-limit
+4851817	   minForce-limit
+4871977	   maxForce-limit
+4892257	   minForce-limit
+4913257	   maxForce-limit
+4934077	   minForce-limit
+4954957	   maxForce-limit
+4976017	   minForce-limit
+4996897	   maxForce-limit
+5017777	   minForce-limit
+5038777	   maxForce-limit
+5059297	   minForce-limit
+5080057	   maxForce-limit
+5100997	   minForce-limit
+5121997	   maxForce-limit
+5142517	   minForce-limit
+5163276	   maxForce-limit
+5184277	   minForce-limit
+5204557	   maxForce-limit
+5225017	   minForce-limit
+5245477	   maxForce-limit
+5265457	   minForce-limit
+5286337	   maxForce-limit
+5287777	temperatureA = 5.004	temperatureB = 4.321
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15292	TrapBPsdSum = 15376
+     TrapALeverSum = 15803	TrapBLeverSum = 11230
+5307217	   minForce-limit
+5328097	   maxForce-limit
+5349457	   minForce-limit
+5370817	   maxForce-limit
+5391997	   minForce-limit
+5413177	   maxForce-limit
+5434357	   minForce-limit
+5455657	   maxForce-limit
+5476537	   minForce-limit
+5496517	   maxForce-limit
+5516557	   minForce-limit
+5537437	   maxForce-limit
+5558197	   minForce-limit
+5578177	   maxForce-limit
+5598277	   minForce-limit
+5619037	   maxForce-limit
+5640337	   minForce-limit
+5660797	   maxForce-limit
+5680597	   minForce-limit
+5701297	   maxForce-limit
+5722537	   minForce-limit
+5743777	   maxForce-limit
+5764777	   minForce-limit
+5767837	temperatureA = 5.011	temperatureB = 4.320
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15268	TrapBPsdSum = 15436
+     TrapALeverSum = 15633	TrapBLeverSum = 11220
+5784997	   maxForce-limit
+5805337	   minForce-limit
+5825737	   maxForce-limit
+5846137	   minForce-limit
+5867377	   maxForce-limit
+5888677	   minForce-limit
+5909917	   maxForce-limit
+5930497	   minForce-limit
+5951077	   maxForce-limit
+5972617	   minForce-limit
+5993797	   maxForce-limit
+6014737	   minForce-limit
+6035617	   maxForce-limit
+6056846	   minForce-limit
+6119737	   maxForce-limit
+6140857	   minForce-limit
+6161857	   maxForce-limit
+6183097	   minForce-limit
+6204397	   maxForce-limit
+6225517	   minForce-limit
+6246637	   maxForce-limit
+6247897	temperatureA = 5.006	temperatureB = 4.330
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15307	TrapBPsdSum = 15381
+     TrapALeverSum = 15796	TrapBLeverSum = 11229
+6267397	   minForce-limit
+6287377	   maxForce-limit
+6307537	   minForce-limit
+6328537	   maxForce-limit
+6349717	   minForce-limit
+6370777	   maxForce-limit
+6391777	   minForce-limit
+6412777	   maxForce-limit
+6433837	   minForce-limit
+6454837	   maxForce-limit
+6475837	   minForce-limit
+6496957	   maxForce-limit
+6518017	   minForce-limit
+6539077	   maxForce-limit
+6560017	   minForce-limit
+6581017	   maxForce-limit
+6602017	   minForce-limit
+6622237	   maxForce-limit
+6642337	   minForce-limit
+6663217	   maxForce-limit
+6684277	   minForce-limit
+6705338	   maxForce-limit
+6726446	   minForce-limit
+6727957	temperatureA = 5.013	temperatureB = 4.330
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15265	TrapBPsdSum = 15429
+     TrapALeverSum = 15613	TrapBLeverSum = 11208
+6747577	   maxForce-limit
+6768457	   minForce-limit
+6789457	   maxForce-limit
+6810146	   minForce-limit
+6830917	   maxForce-limit
+6852097	   minForce-limit
+6873217	   maxForce-limit
+6893737	   minForce-limit
+6913477	   maxForce-limit
+6933577	   minForce-limit
+6954517	   maxForce-limit
+6975577	   minForce-limit
+6996577	   maxForce-limit
+7017757	   minForce-limit
+7038097	   maxForce-limit
+7057957	   minForce-limit
+7077817	   maxForce-limit
+7098337	   minForce-limit
+7118917	   maxForce-limit
+7139317	   minForce-limit
+7160377	   maxForce-limit
+7181617	   minForce-limit
+7202737	   maxForce-limit
+7208017	temperatureA = 5.035	temperatureB = 4.329
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15340	TrapBPsdSum = 15442
+     TrapALeverSum = 15781	TrapBLeverSum = 11230
+7223857	   minForce-limit
+7244977	   maxForce-limit
+7266157	   minForce-limit
+7287517	   maxForce-limit
+7308817	   minForce-limit
+7330117	   maxForce-limit
+7350757	   minForce-limit
+7370737	   maxForce-limit
+7391017	   minForce-limit
+7412017	   maxForce-limit
+7433197	   minForce-limit
+7454317	   maxForce-limit
+7475617	   minForce-limit
+7496857	   maxForce-limit
+7517677	   minForce-limit
+7537657	   maxForce-limit
+7557877	   minForce-limit
+7579057	   maxForce-limit
+7600117	   minForce-limit
+7620157	   maxForce-limit
+7640737	   minForce-limit
+7661977	   maxForce-limit
+7683097	   minForce-limit
+7688077	temperatureA = 5.038	temperatureB = 4.331
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15290	TrapBPsdSum = 15458
+     TrapALeverSum = 15660	TrapBLeverSum = 11220
+7704457	   maxForce-limit
+7725637	   minForce-limit
+7746937	   maxForce-limit
+7768237	   minForce-limit
+7789417	   maxForce-limit
+7810837	   minForce-limit
+7832317	   maxForce-limit
+7853917	   minForce-limit
+7875397	   maxForce-limit
+7896637	   minForce-limit
+7917877	   maxForce-limit
+7938637	   minForce-limit
+7959277	   maxForce-limit
+7980277	   minForce-limit
+8000497	   maxForce-limit
+8020657	   minForce-limit
+8041537	   maxForce-limit
+8062417	   minForce-limit
+8083837	   maxForce-limit
+8104897	   minForce-limit
+8124997	   maxForce-limit
+8145277	   minForce-limit
+8166277	   maxForce-limit
+8168137	temperatureA = 5.037	temperatureB = 4.341
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15325	TrapBPsdSum = 15389
+     TrapALeverSum = 15794	TrapBLeverSum = 11229
+8187157	   minForce-limit
+8207317	   maxForce-limit
+8227717	   minForce-limit
+8248837	   maxForce-limit
+8269717	   minForce-limit
+8290537	   maxForce-limit
+8311657	   minForce-limit
+8332957	   maxForce-limit
+8353897	   minForce-limit
+8373817	   maxForce-limit
+8393917	   minForce-limit
+8414137	   maxForce-limit
+8434357	   minForce-limit
+8454697	   maxForce-limit
+8475097	   minForce-limit
+8496157	   maxForce-limit
+8517037	   minForce-limit
+8537977	   maxForce-limit
+8558857	   minForce-limit
+8579797	   maxForce-limit
+8600737	   minForce-limit
+8621797	   maxForce-limit
+8643157	   minForce-limit
+8648197	temperatureA = 5.049	temperatureB = 4.350
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15306	TrapBPsdSum = 15448
+     TrapALeverSum = 15659	TrapBLeverSum = 11208
+8664397	   maxForce-limit
+8685757	   minForce-limit
+8706937	   maxForce-limit
+8727817	   minForce-limit
+8748877	   maxForce-limit
+8769697	   minForce-limit
+8790577	   maxForce-limit
+8811457	   minForce-limit
+8832337	   maxForce-limit
+8853217	   minForce-limit
+8874157	   maxForce-limit
+8895277	   minForce-limit
+8916457	   maxForce-limit
+8937457	   minForce-limit
+8958277	   maxForce-limit
+8979097	   minForce-limit
+9000037	   maxForce-limit
+9021277	   minForce-limit
+9041737	   maxForce-limit
+9062077	   minForce-limit
+9082537	   maxForce-limit
+9102577	   minForce-limit
+9123517	   maxForce-limit
+9128317	temperatureA = 5.032	temperatureB = 4.341
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15358	TrapBPsdSum = 15428
+     TrapALeverSum = 15785	TrapBLeverSum = 11223
+9144517	   minForce-limit
+9164617	   maxForce-limit
+9185017	   minForce-limit
+9206317	   maxForce-limit
+9227077	   minForce-limit
+9247837	   maxForce-limit
+9268957	   minForce-limit
+9289417	   maxForce-limit
+9309457	   minForce-limit
+9330217	   maxForce-limit
+9351517	   minForce-limit
+9371977	   maxForce-limit
+9392017	   minForce-limit
+9412057	   maxForce-limit
+9432157	   minForce-limit
+9452137	   maxForce-limit
+9472057	   minForce-limit
+9493477	   maxForce-limit
+9514897	   minForce-limit
+9536617	   maxForce-limit
+9558097	   minForce-limit
+9579337	   maxForce-limit
+9600457	   minForce-limit
+9608377	temperatureA = 5.044	temperatureB = 4.350
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15472	TrapBPsdSum = 15430
+     TrapALeverSum = 15704	TrapBLeverSum = 11216
+9621997	   maxForce-limit
+9643777	   minForce-limit
+9665257	   maxForce-limit
+9686437	   minForce-limit
+9707737	   maxForce-limit
+9728857	   minForce-limit
+9750037	   maxForce-limit
+9771277	   minForce-limit
+9792577	   maxForce-limit
+9813637	   minForce-limit
+9834757	   maxForce-limit
+9856237	   minForce-limit
+9877717	   maxForce-limit
+9898897	   minForce-limit
+9920137	   maxForce-limit
+9942097	   minForce-limit
+9963157	   maxForce-limit
+9983917	   minForce-limit
+10004557	   maxForce-limit
+10024777	   minForce-limit
+10045837	   maxForce-limit
+10066597	   minForce-limit
+10087597	   maxForce-limit
+10088437	temperatureA = 5.046	temperatureB = 4.346
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15346	TrapBPsdSum = 15346
+     TrapALeverSum = 15818	TrapBLeverSum = 11220
+10109317	   minForce-limit
+10130977	   maxForce-limit
+10152517	   minForce-limit
+10174057	   maxForce-limit
+10195357	   minForce-limit
+10216837	   maxForce-limit
+10237717	   minForce-limit
+10258417	   maxForce-limit
+10279837	   minForce-limit
+10301437	   maxForce-limit
+10323277	   minForce-limit
+10344877	   maxForce-limit
+10365997	   minForce-limit
+10387357	   maxForce-limit
+10409317	   minForce-limit
+10430137	   maxForce-limit
+10450717	   minForce-limit
+10471837	   maxForce-limit
+10492477	   minForce-limit
+10513177	   maxForce-limit
+10534237	   minForce-limit
+10555237	   maxForce-limit
+10568497	temperatureA = 5.049	temperatureB = 4.357
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15459	TrapBPsdSum = 15429
+     TrapALeverSum = 15730	TrapBLeverSum = 11206
+10576646	   minForce-limit
+10598257	   maxForce-limit
+10619497	   minForce-limit
+10640497	   maxForce-limit
+10660837	   minForce-limit
+10681057	   maxForce-limit
+10702357	   minForce-limit
+10723957	   maxForce-limit
+10745197	   minForce-limit
+10766137	   maxForce-limit
+10787437	   minForce-limit
+10808197	   maxForce-limit
+10828177	   minForce-limit
+10848577	   maxForce-limit
+10869457	   minForce-limit
+10890457	   maxForce-limit
+10911097	   minForce-limit
+10931977	   maxForce-limit
+10953037	   minForce-limit
+11012257	   maxForce-limit
+11032477	   minForce-limit
+11048557	temperatureA = 5.056	temperatureB = 4.362
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15412	TrapBPsdSum = 15384
+     TrapALeverSum = 15803	TrapBLeverSum = 11216
+11052277	   maxForce-limit
+11072557	   minForce-limit
+11093497	   maxForce-limit
+11114977	   minForce-limit
+11136637	   maxForce-limit
+11158177	   minForce-limit
+11178637	   maxForce-limit
+11198857	   minForce-limit
+11219377	   maxForce-limit
+11239777	   minForce-limit
+11260657	   maxForce-limit
+11281057	   minForce-limit
+11301937	   maxForce-limit
+11322757	   minForce-limit
+11344057	   maxForce-limit
+11365777	   minForce-limit
+11386897	   maxForce-limit
+11407237	   minForce-limit
+11427877	   maxForce-limit
+11448757	   minForce-limit
+11469697	   maxForce-limit
+11490877	   minForce-limit
+11511997	   maxForce-limit
+11528617	temperatureA = 5.058	temperatureB = 4.365
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15466	TrapBPsdSum = 15422
+     TrapALeverSum = 15706	TrapBLeverSum = 11218
+11533537	   minForce-limit
+11554297	   maxForce-limit
+11575057	   minForce-limit
+11596417	   maxForce-limit
+11617537	   minForce-limit
+11638837	   maxForce-limit
+11660077	   minForce-limit
+11681437	   maxForce-limit
+11703217	   minForce-limit
+11725057	   maxForce-limit
+11746717	   minForce-limit
+11768437	   maxForce-limit
+11790157	   minForce-limit
+11811217	   maxForce-limit
+11832277	   minForce-limit
+11853757	   maxForce-limit
+11875117	   minForce-limit
+11896417	   maxForce-limit
+11917177	   minForce-limit
+11937577	   maxForce-limit
+11958517	   minForce-limit
+11979637	   maxForce-limit
+12000757	   minForce-limit
+12008677	temperatureA = 5.049	temperatureB = 4.367
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15452	TrapBPsdSum = 15426
+     TrapALeverSum = 15725	TrapBLeverSum = 11206
+12021997	   maxForce-limit
+12043177	   minForce-limit
+12063397	   maxForce-limit
+12083737	   minForce-limit
+12105097	   maxForce-limit
+12125917	   minForce-limit
+12146737	   maxForce-limit
+12168217	   minForce-limit
+12188977	   maxForce-limit
+12209557	   minForce-limit
+12229837	   maxForce-limit
+12249637	   minForce-limit
+12270757	   maxForce-limit
+12292417	   minForce-limit
+12314017	   maxForce-limit
+12335437	   minForce-limit
+12356917	   maxForce-limit
+12378517	   minForce-limit
+12403717	Stop All Protocols, go to manual mode
+12410377	TrapAB autoAlign ON.
+12467557	Start P4 pulling protocol 
+12485917	   minForce-limit
+12488737	temperatureA = 5.069	temperatureB = 4.371
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15446	TrapBPsdSum = 15414
+     TrapALeverSum = 15606	TrapBLeverSum = 11216
+12506677	   maxForce-limit
+12527257	   minForce-limit
+12548617	   maxForce-limit
+12569917	   minForce-limit
+12591097	   maxForce-limit
+12612457	   minForce-limit
+12633757	   maxForce-limit
+12655117	   minForce-limit
+12676717	   maxForce-limit
+12698137	   minForce-limit
+12719497	   maxForce-limit
+12740677	   minForce-limit
+12761977	   maxForce-limit
+12783337	   minForce-limit
+12804996	   maxForce-limit
+12826417	   minForce-limit
+12847657	   maxForce-limit
+12868777	   minForce-limit
+12889897	   maxForce-limit
+12910897	   minForce-limit
+12932077	   maxForce-limit
+12953726	   minForce-limit
+12968796	temperatureA = 5.061	temperatureB = 4.368
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15479	TrapBPsdSum = 15397
+     TrapALeverSum = 15768	TrapBLeverSum = 11230
+12975577	   maxForce-limit
+12996877	   minForce-limit
+13017817	   maxForce-limit
+13038817	   minForce-limit
+13059877	   maxForce-limit
+13080337	   minForce-limit
+13100017	   maxForce-limit
+13120417	   minForce-limit
+13141657	   maxForce-limit
+13163077	   minForce-limit
+13184617	   maxForce-limit
+13205617	   minForce-limit
+13225717	   maxForce-limit
+13245817	   minForce-limit
+13266697	   maxForce-limit
+13287517	   minForce-limit
+13308277	   maxForce-limit
+13329157	   minForce-limit
+13349197	   maxForce-limit
+13369777	   minForce-limit
+13391257	   maxForce-limit
+13412377	   minForce-limit
+13432297	   maxForce-limit
+13448797	temperatureA = 5.072	temperatureB = 4.375
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15466	TrapBPsdSum = 15408
+     TrapALeverSum = 15643	TrapBLeverSum = 11231
+13452337	   minForce-limit
+13473577	   maxForce-limit
+13493917	   minForce-limit
+13513417	   maxForce-limit
+13534237	   minForce-limit
+13555897	   maxForce-limit
+13577289	   minForce-limit
+13597897	   maxForce-limit
+13618537	   minForce-limit
+13640017	   maxForce-limit
+13661617	   minForce-limit
+13682917	   maxForce-limit
+13703857	   minForce-limit
+13725097	   maxForce-limit
+13746997	   minForce-limit
+13768057	   maxForce-limit
+13788697	   minForce-limit
+13809997	   maxForce-limit
+13830397	   minForce-limit
+13850917	   maxForce-limit
+13872397	   minForce-limit
+13893757	   maxForce-limit
+13914997	   minForce-limit
+13928829	temperatureA = 5.074	temperatureB = 4.382
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15490	TrapBPsdSum = 15399
+     TrapALeverSum = 15751	TrapBLeverSum = 11224
+13936357	   maxForce-limit
+13957117	   minForce-limit
+13977877	   maxForce-limit
+13998637	   minForce-limit
+14019517	   maxForce-limit
+14041117	   minForce-limit
+14062897	   maxForce-limit
+14084797	   minForce-limit
+14106637	   maxForce-limit
+14128057	   minForce-limit
+14149477	   maxForce-limit
+14171197	   minForce-limit
+14192317	   maxForce-limit
+14212777	   minForce-limit
+14232757	   maxForce-limit
+14252917	   minForce-limit
+14273377	   maxForce-limit
+14293597	   minForce-limit
+14314597	   maxForce-limit
+14336017	   minForce-limit
+14357197	   maxForce-limit
+14378257	   minForce-limit
+14398357	   maxForce-limit
+14408857	temperatureA = 5.098	temperatureB = 4.388
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15511	TrapBPsdSum = 15399
+     TrapALeverSum = 15727	TrapBLeverSum = 11222
+14418577	   minForce-limit
+14439877	   maxForce-limit
+14461417	   minForce-limit
+14483017	   maxForce-limit
+14504677	   minForce-limit
+14525437	   maxForce-limit
+14545717	   minForce-limit
+14567017	   maxForce-limit
+14588317	   minForce-limit
+14608717	   maxForce-limit
+14628997	   minForce-limit
+14650117	   maxForce-limit
+14671357	   minForce-limit
+14692717	   maxForce-limit
+14714137	   minForce-limit
+14748097	   maxForce-limit
+14781997	   minForce-limit
+14818237	   maxForce-limit
+14854717	   minForce-limit
+14888917	temperatureA = 5.091	temperatureB = 4.382
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15238	TrapBPsdSum = 15200
+     TrapALeverSum = 15916	TrapBLeverSum = 11247
+14891077	   maxForce-limit
+14927497	   minForce-limit
+14964037	   maxForce-limit
+14999977	   minForce-limit
+15035917	   maxForce-limit
+15072097	   minForce-limit
+15108037	   maxForce-limit
+15144397	   minForce-limit
+15162757	Stop All Protocols, go to manual mode
+15171217	focus pipette in
+15172717	focus pipette in
+15174037	focus pipette in
+15175237	focus pipette in
+15176497	focus pipette in
+15177577	focus pipette in
+15178777	focus pipette in
+15179797	focus pipette in
+15180877	focus pipette in
+15182017	focus pipette in
+15183037	focus pipette in
+15183877	focus pipette in
+15184657	focus pipette in
+15185497	focus pipette in
+15186157	focus pipette in
+15188137	focus pipette in
+15222877	Start P4 pulling protocol 
+15277717	   minForce-limit
+15313897	   maxForce-limit
+15350137	   minForce-limit
+15368977	temperatureA = 5.096	temperatureB = 4.395
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15379	TrapBPsdSum = 15373
+     TrapALeverSum = 15769	TrapBLeverSum = 11258
+15386077	   maxForce-limit
+15422077	   minForce-limit
+15458077	   maxForce-limit
+15494137	   minForce-limit
+15530017	   maxForce-limit
+15565897	   minForce-limit
+15601597	   maxForce-limit
+15637657	   minForce-limit
+15674257	   maxForce-limit
+15710617	   minForce-limit
+15746977	   maxForce-limit
+15783457	   minForce-limit
+15819817	   maxForce-limit
+15839917	-----------------------switch to file B ---------------------
+15849037	temperatureA = 5.096	temperatureB = 4.409
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15497	TrapBPsdSum = 15423
+     TrapALeverSum = 15611	TrapBLeverSum = 11244
+15856477	   minForce-limit
+15893197	   maxForce-limit
+15929137	   minForce-limit
+15965077	   maxForce-limit
+16000957	   minForce-limit
+16036657	   maxForce-limit
+16073317	   minForce-limit
+16110097	   maxForce-limit
+16146637	   minForce-limit
+16182937	   maxForce-limit
+16219057	   minForce-limit
+16255297	   maxForce-limit
+16291854	   minForce-limit
+16328677	   maxForce-limit
+16329097	temperatureA = 5.098	temperatureB = 4.401
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15203	TrapBPsdSum = 15225
+     TrapALeverSum = 15928	TrapBLeverSum = 11252
+16365817	   minForce-limit
+16402537	   maxForce-limit
+16438657	   minForce-limit
+16474837	   maxForce-limit
+16510717	   minForce-limit
+16546717	   maxForce-limit
+16583377	   minForce-limit
+16620157	   maxForce-limit
+16656637	   minForce-limit
+16693057	   maxForce-limit
+16729177	   minForce-limit
+16765177	   maxForce-limit
+16801656	   minForce-limit
+16809156	temperatureA = 5.105	temperatureB = 4.408
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15471	TrapBPsdSum = 15432
+     TrapALeverSum = 15598	TrapBLeverSum = 11248
+16838136	   maxForce-limit
+16874196	   minForce-limit
+16910376	   maxForce-limit
+16946556	   minForce-limit
+16982796	   maxForce-limit
+17018676	   minForce-limit
+17054556	   maxForce-limit
+17091156	   minForce-limit
+17127516	   maxForce-limit
+17163696	   minForce-limit
+17199816	   maxForce-limit
+17235936	   minForce-limit
+17272176	   maxForce-limit
+17289216	temperatureA = 5.109	temperatureB = 4.414
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15371	TrapBPsdSum = 15343
+     TrapALeverSum = 15818	TrapBLeverSum = 11258
+17308416	   minForce-limit
+17344836	   maxForce-limit
+17381136	   minForce-limit
+17417136	   maxForce-limit
+17452956	   minForce-limit
+17488956	   maxForce-limit
+17525016	   minForce-limit
+17561076	   maxForce-limit
+17597256	   minForce-limit
+17633196	   maxForce-limit
+17669616	   minForce-limit
+17705916	   maxForce-limit
+17769336	temperatureA = 5.114	temperatureB = 4.406
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15242	TrapBPsdSum = 15255
+     TrapALeverSum = 15878	TrapBLeverSum = 11248
+17815056	   minForce-limit
+17851656	   maxForce-limit
+17888256	   minForce-limit
+17924976	   maxForce-limit
+17960796	   minForce-limit
+17996376	   maxForce-limit
+18032556	   minForce-limit
+18068976	   maxForce-limit
+18105936	   minForce-limit
+18215436	   maxForce-limit
+18249396	temperatureA = 5.111	temperatureB = 4.412
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15450	TrapBPsdSum = 15423
+     TrapALeverSum = 15540	TrapBLeverSum = 11240
+18252096	   minForce-limit
+18288516	   maxForce-limit
+18325056	   minForce-limit
+18361956	   maxForce-limit
+18398556	   minForce-limit
+18435096	   maxForce-limit
+18470976	   minForce-limit
+18506976	   maxForce-limit
+18543216	   minForce-limit
+18579096	   maxForce-limit
+18615336	   minForce-limit
+18651696	   maxForce-limit
+18688416	   minForce-limit
+18725316	   maxForce-limit
+18729456	temperatureA = 5.109	temperatureB = 4.410
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15256	TrapBPsdSum = 15238
+     TrapALeverSum = 15926	TrapBLeverSum = 11256
+18761976	   minForce-limit
+18798816	   maxForce-limit
+18835716	   minForce-limit
+18872436	   maxForce-limit
+18908976	   minForce-limit
+18945396	   maxForce-limit
+18981756	   minForce-limit
+19017996	   maxForce-limit
+19054476	   minForce-limit
+19091136	   maxForce-limit
+19127916	   minForce-limit
+19164456	   maxForce-limit
+19201176	   minForce-limit
+19209516	temperatureA = 5.122	temperatureB = 4.414
+     ForceCorr(TempA) = 1.00000
+     TrapAPsdSum = 15487	TrapBPsdSum = 15426
+     TrapALeverSum = 15617	TrapBLeverSum = 11253
+19238376	   maxForce-limit
+19275756	   minForce-limit
+19312776	   maxForce-limit
+19349496	   minForce-limit
+19386216	   maxForce-limit
+19392696	End Write
