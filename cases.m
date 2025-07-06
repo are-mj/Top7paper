@@ -1,4 +1,4 @@
-function [ucases,rcases] = cases(TP,TR)
+function [ucases,rcases] = cases(TRIP,TZIP)
 % Create logical arrays for combinations of 
 %   Temperature
 %   Pulling speed
@@ -6,30 +6,30 @@ function [ucases,rcases] = cases(TP,TR)
 % Output:
 %   ucases : Unfoldig cases
 %     ucases(m).selected is a logical column vector
-%       True if TP.Temperature is in ucases(m).Tclass
-%       and TP.Pullingspeed is in ucases(m).speedclass
+%       True if TRIP.Temperature is in ucases(m).Tclass
+%       and TRIP.Pullingspeed is in ucases(m).speedclass
 %     ucases(m).clusters is a n by 3 (or 2) logical array
 %     ucases(m).text describes tha case
 %   rcases : Refolding cases
 %     Similar to ucases but lacking clusters
 
   if nargin < 1
-    load tables TP TR
+    load tables TRIP TZIP
   end
   
   % Unfold cases:
-  T = TP.Temperature;
+  T = TRIP.Temperature;
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=20,20<T&T<=30];
   Ttext = ["3-7","7-14","14-20","20-30"];
   
-  speed = TP.Pullingspeed;
+  speed = TRIP.Pullingspeed;
   fast = speed>250;
   normal = speed<250 & speed>50;
   slow = speed<50;
   speedclass = [slow,normal,fast];
   speedtext = ["<50","50-250",">250"];
   
-  [cl1,cl2,cl3] = clusterdefinitions(TP);
+  [cl1,cl2,cl3] = clusterdefinitions(TRIP);
   Clusters = [cl1,cl2,cl3]; 
   
   m = 0;
@@ -53,11 +53,11 @@ function [ucases,rcases] = cases(TP,TR)
 
   if nargin > 1
     % refold cases:
-    T = TR.Temperature;
+    T = TZIP.Temperature;
     Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=20,20<T&T<=30];
     Ttext = ["3-7","7-14","14-20","20-30"];
     
-    speed = TR.Pullingspeed;
+    speed = TZIP.Pullingspeed;
     fast = speed>250;
     normal = speed<250 & speed>50;
     slow = speed<50;

@@ -1,8 +1,8 @@
-function [theta,ci,rms] = runbootRip(Tp,model,nboot)
+function [theta,ci,rms] = runbootRip(Trip,model,nboot)
 % Running bootstrap calculation of 95% confidence intervals for all
 % combinations of temperature and pulling speed, and for all clusters with
 % more than 9 rips.
-% Input:  Tp: Rip table from analyse_many
+% Input:  Trip: Rip table from analyse_many
 %         model:  "Bell" or "Dudko"
 % Output ci: cols 1:2: ci for theta(1) etc.
 % NOTE that I skip 20<T<= 30, cluster 2. This has only 9 rips and crashes 
@@ -19,17 +19,17 @@ function [theta,ci,rms] = runbootRip(Tp,model,nboot)
   theta = zeros(21,ntheta);
   ci = zeros(21,2*ntheta); 
   rms = zeros(21,1);
-  ucases = cases(Tp);
+  ucases = cases(Trip);
   dF = 1;
   k = 1;
   for i = 1:length(ucases)
-    Tmean = mean(Tp.Temperature(ucases(i).selected));
-    Fdot = mean(Tp.Fdot(ucases(i).selected));
+    Tmean = mean(Trip.Temperature(ucases(i).selected));
+    Fdot = mean(Trip.Fdot(ucases(i).selected));
     okclusters = find(sum(ucases(i).clusters)>9);
     for j = okclusters
       selection = ucases(i).selected & ucases(i).clusters(:,j);
       fprintf('%25s,  %d\n',ucases(i).text,j);
-      force = Tp.Force(selection);
+      force = Trip.Force(selection);
       switch model
         case "Bell"
           thetafun = @(f) Bellfun(f,dF,Tmean,Fdot,theta0);

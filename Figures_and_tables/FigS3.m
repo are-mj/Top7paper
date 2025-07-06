@@ -1,11 +1,11 @@
 function FigS3
-  load Tables TP
-  [cl1,cl2,cl3,outliers,clustershapes] = clusterdefinitions(TP);
+  load Tables TRIP
+  [cl1,cl2,cl3,outliers,clustershapes] = clusterdefinitions(TRIP);
   figure('Name','FigS3'); hold on
-  plot(TP.Deltax(cl1),TP.Force(cl1),'.b');
-  plot(TP.Deltax(cl2),TP.Force(cl2),'.r');
-  plot(TP.Deltax(cl3),TP.Force(cl3),'.m');
-  plot(TP.Deltax(outliers),TP.Force(outliers),'.','color',0.65*[1 1 1]);
+  plot(TRIP.Deltax(cl1),TRIP.Force(cl1),'.b');
+  plot(TRIP.Deltax(cl2),TRIP.Force(cl2),'.r');
+  plot(TRIP.Deltax(cl3),TRIP.Force(cl3),'.m');
+  plot(TRIP.Deltax(outliers),TRIP.Force(outliers),'.','color',0.65*[1 1 1]);
   c = get(gca,'children');
   for i = 1:length(c)
     c(i).MarkerSize = 4;

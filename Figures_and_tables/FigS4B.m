@@ -1,12 +1,12 @@
 function fmean = FigS4B
 % Figure S4B. Plot force histogram normal speed and different temperatures
 
-  load Tables.mat TP
+  load Tables.mat TRIP
 
   % Select pulling trace events (rips)
-  T = TP.Temperature;
-  f = TP.Force;
-  speed = TP.Pullingspeed;
+  T = TRIP.Temperature;
+  f = TRIP.Force;
+  speed = TRIP.Pullingspeed;
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=21,20<T&T<30];
   Ttext = ["3°C<T<=7°C","7°C<T<=14°C","14°C<T<=20°C","20°C<T<=30°C"];
   slow = speed < 50;
@@ -14,7 +14,7 @@ function fmean = FigS4B
   fast = speed > 250;
   % speeds = [fast,normal,slow;]
   % speedtext = ["250-1000nm/s","50-250nm/s","10-50nm/s"];
-  [cl1,cl2,cl3] = clusterdefinitions(TP);
+  [cl1,cl2,cl3] = clusterdefinitions(TRIP);
 
   selection = [normal & Tclass(:,2),normal & Tclass(:,3)];
   texts = strcat(Ttext(2:3)," normal speed");
@@ -31,8 +31,8 @@ function fmean = FigS4B
     N = histcounts(f(sel),edges);
     fmean(i) = mean(f(sel));
     p = N/sum(N)/step;
-    [~,~,n,Fplot,pdbell] = fitBell(TP,clusters&selection(:,i),0);
-    % [~,~,~,n,Fplot,pdbell] = fit_dual_Bell(TP,runcase,clusters,0);
+    [~,~,n,Fplot,pdbell] = fitBell(TRIP,clusters&selection(:,i),0);
+    % [~,~,~,n,Fplot,pdbell] = fit_dual_Bell(TRIP,runcase,clusters,0);
     w = n/sum(n);
     nexttile
     bar(values,p,1);

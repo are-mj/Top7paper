@@ -1,4 +1,4 @@
-function Tout = run_fit(TP,TR)
+function Tout = run_fit(TRIP,TZIP)
 % Fits parameters for  Bell_unfold, Bell_refold, Dudko, DGkin and DGCrooks
 % and calcuates parameter 95% conficence interval usng bootstrapping
 % function bootci
@@ -22,14 +22,14 @@ function Tout = run_fit(TP,TR)
     'cidx','log10k0','cilog10k0'...
     'DGDudko','ciDGDudko','dxDudko','cidxDudko','log10k0Dudko',...
     'cilog10k0Dudko','DGkin','ciDGkin','DGCrooks','ciDGCrooks'});
-  [ucases,rcases] = cases(TP,TR);
+  [ucases,rcases] = cases(TRIP,TZIP);
   dF = 1;
   k = 1;  % Rowno in Tout
   for i = 1:numel(ucases)  
   % for i = 2
-    Tmean = mean(TP.Temperature(ucases(i).selected));
-    Fdot = mean(TP.Fdot(ucases(i).selected));
-    forceR = TR.Force(rcases(i).selected);
+    Tmean = mean(TRIP.Temperature(ucases(i).selected));
+    Fdot = mean(TRIP.Fdot(ucases(i).selected));
+    forceR = TZIP.Force(rcases(i).selected);
     Text = rcases(i).text;
   
     % Refold
@@ -49,7 +49,7 @@ function Tout = run_fit(TP,TR)
     rsel = rcases(i).selected;
     cls = ucases(i).clusters;
     texts = strcat(ucases(i).text,rcases(i).text);
-    forceR = TR.Force(rsel);
+    forceR = TZIP.Force(rsel);
     thfun = @(f) BellfunR(f,dF,Tmean,Fdot,theta0BellR);
     thR = thfun(forceR);
     dx = thR(1);
@@ -68,14 +68,14 @@ function Tout = run_fit(TP,TR)
     Text = ucases(i).text;
     usel = ucases(i).selected;
     rsel = rcases(i).selected;
-    [G(:,i),Gciu(:,2*i+[1,2])] = fit_Crooks(TP,TR,usel,rsel,cls,texts,0);
+    [G(:,i),Gciu(:,2*i+[1,2])] = fit_Crooks(TRIP,TZIP,usel,rsel,cls,texts,0);
 
     okclusters = find(sum(ucases(i).clusters)>9);
     for j = okclusters
       Clusterno = j;
       selection = ucases(i).selected & ucases(i).clusters(:,j);
       % fprintf('%25s,  %d\n',ucases(i).text,j);
-      force = TP.Force(selection);
+      force = TRIP.Force(selection);
 
       % Bell_unfold
       thfun = @(f) BellfunP(f,dF,Tmean,Fdot,theta0BellP);

@@ -6,7 +6,7 @@ function TableS5
 %   Mark table and paste
 %   Some post-processing in Word required (e.g. subscript/superscript)
 
-  load Tables.mat TP TR Tout
+  load Tables.mat TRIP TZIP Tout
 
   DGkin = Tout.DGkin;
   ciDGkin = Tout.ciDGkin;

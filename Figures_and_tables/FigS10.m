@@ -1,14 +1,14 @@
 function FigS10
-  load Tables.mat TR
+  load Tables.mat TZIP
 
   % Top7 WLC parameters
   P = 0.65;
   L0 = 29.28;
   
-  T = TR.Temperature;
-  force = TR.Force;
-  deltax = -TR.Deltax;
-  speed = TR.Pullingspeed;
+  T = TZIP.Temperature;
+  force = TZIP.Force;
+  deltax = -TZIP.Deltax;
+  speed = TZIP.Pullingspeed;
 
   % Select temperature and pulling speed classes (rips)
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=21,20<T&T<30];

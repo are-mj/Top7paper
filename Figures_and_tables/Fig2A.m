@@ -1,13 +1,13 @@
 function Fig2A
 
-  load Tables.mat TP TR  % 121 files
+  load Tables.mat TRIP TZIP  % 121 files
 
   conversion = 0.1439326;  % Energy units kcal/kmol 
 
   % Select pulling trace events (rips)
-  T = TP.Temperature;
-  f = TP.Force;
-  speed = TP.Pullingspeed;
+  T = TRIP.Temperature;
+  f = TRIP.Force;
+  speed = TRIP.Pullingspeed;
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=21,20<T&T<30];
   Ttext = ["3°C<T<=7°C","7°C<T<=14°C","14°C<T<=20°C","20°C<T<=30°C"];
   % slow = speed < 30;
@@ -16,16 +16,16 @@ function Fig2A
   slow = speed < 50;
   normal = speed > 50 & speed<250;
   fast = speed > 250;
-  [cl1,cl2,cl3] = clusterdefinitions(TP);
+  [cl1,cl2,cl3] = clusterdefinitions(TRIP);
   ok = cl1|cl2|cl3;
   selectionP = [normal & Tclass(:,1),normal & Tclass(:,4)];
   texts = Ttext([1,4]);
   clusters = [cl1,cl2,cl3];
 
   % Select relaxing trace events (zips)
-  T = TR.Temperature;
-  f = TR.Force;
-  speed = TR.Pullingspeed;
+  T = TZIP.Temperature;
+  f = TZIP.Force;
+  speed = TZIP.Pullingspeed;
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=21,20<T&T<30];
   Ttext = ["3°C<T<=7°C","7°C<T<=14°C","14°C<T<=20°C","20°C<T<=30°C"];
   slow = speed < 30;
@@ -40,7 +40,7 @@ function Fig2A
   figure('Name','Fig2A');
   tcl = tiledlayout(2,1,"TileSpacing","compact");
   for i = 1:2
-    [DG,DGstd] = fit_Crooks(TP,TR,selectionP(:,i),selectionR(:,i),clusters,texts(i),1);
+    [DG,DGstd] = fit_Crooks(TRIP,TZIP,selectionP(:,i),selectionR(:,i),clusters,texts(i),1);
 
     % set line color to black:
     c = get(gca,'children');

@@ -5,7 +5,6 @@ function par = params
   par.maxrips = 1;       % Maximum number of rips/zips accepted per trace
   par.laterips = 0;      % 1: Look for rips in the relax trace. 0: skip
 
-
 % Parameters for separating out individual traces:
   par.threshold = 12; % (pN) Crossing this value defines high and low force periods
   par.lim = 16; % (pN) High force periods that stay below this value are disregarded as noise
@@ -36,7 +35,7 @@ function par = params
   par.Tlist{1} = [0 2 4 6 8 10 12 14 16 20 24 31; ...
   0 3.07 6.96 10.78 13.75 16.92 20.14 22.92 25.10 28.01 30.77 34.83];
   par.Tlist{2} = [0 2 3 4 6 16;0 5.48 7.72 10.49 14.49 27.30];
-  par.Instrumentname = ["Tim's Gift","SBS-tester 850-808"];
+  par.Instrumentname = ["Tim's Gift 845-845 nm","SBS-tester 850-808"];
   % These are the instruments in Christian's and Steve's labolratories,
   % respectively
 

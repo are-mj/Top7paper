@@ -5,12 +5,12 @@ function TableS3
 %   7 Columns, 19 Rows, Autofit to contents
 %   Mark table and paste
 %   Some post-processing in Word required (e.g. subscript/superscript)
-  load Tables.mat TPTop7 TPTop7Top7 TPTop7BSA TPTop7FOXP1
+  load Tables.mat TRIPTop7 TRIPTop7Top7 TRIPTop7BSA TRIPTop7FOXP1
 
   Ttext = ["3-7°C","7-14°C","14-20°C","20-30°C"];
   speedtext = ["<50nm/s","50-250nm/s",">250nm/s"];
   speedtext = ["<50","50-250",">250"];
-  soltables = {TPTop7Top7,TPTop7BSA,TPTop7FOXP1};
+  soltables = {TRIPTop7Top7,TRIPTop7BSA,TRIPTop7FOXP1};
   soltext = ["Top7/Top7","Top7/BSA","Top7/FOXP1"];
 
   % Top7 WLC parameters
@@ -24,21 +24,21 @@ function TableS3
     tbl(1,col) = Ttext(col-3);
   end
 
-  % TPTop7 results:
-  force = TPTop7.Force;
-  deltax = TPTop7.Deltax;
-  T = TPTop7.Temperature;
+  % TRIPTop7 results:
+  force = TRIPTop7.Force;
+  deltax = TRIPTop7.Deltax;
+  T = TRIPTop7.Temperature;
   n = numel(force);
   L = zeros(n,1);
   for i = 1:n
     deltax0 = wlc_inverse(force(i),P,T(i)+273.15,L0);
     L(i) = L0*deltax(i)/deltax0;
   end
-  [cl1,cl2,cl3] = clusterdefinitions(TPTop7);
+  [cl1,cl2,cl3] = clusterdefinitions(TRIPTop7);
   Clusters = [cl1,cl2,cl3];
   
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=20,20<T&T<=30];
-  speed = TPTop7.Pullingspeed;
+  speed = TRIPTop7.Pullingspeed;
   speedclass = [speed<50,speed>50&speed<250,speed>250];    
 
   for clusterno = 1:3

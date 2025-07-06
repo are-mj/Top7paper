@@ -4,20 +4,20 @@ function FigS7
   P = 0.65;
   L0 = 29.28;
 
-  load Tables.mat TR
+  load Tables.mat TZIP
 
-  force = TR.Force;
-  deltax = -TR.Deltax;
-  speed = TR.Pullingspeed;
-  T = TR.Temperature;
+  force = TZIP.Force;
+  deltax = -TZIP.Deltax;
+  speed = TZIP.Pullingspeed;
+  T = TZIP.Temperature;
 
   % Select temperature and pulling speed classes (rips)
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=21,20<T&T<30];
   Ttext = ["3°C<T<=7°C","7°C<T<=14°C","14°C<T<=20°C","20°C<T<=30°C"];
   normal = speed > 50 & speed<250;
 
-  force = TR.Force;  
-  T = TR.Temperature;
+  force = TZIP.Force;  
+  T = TZIP.Temperature;
   N = length(force);
   L = zeros(N,1);
   for i = 1:N

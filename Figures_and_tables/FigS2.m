@@ -1,8 +1,8 @@
 function FigS2
 
-  load Tables TP
-  T = TP.Temperature;
-  speed = TP.Pullingspeed;
+  load Tables TRIP
+  T = TRIP.Temperature;
+  speed = TRIP.Pullingspeed;
 
   figure('Name','FigS2');
   tcl = tiledlayout(2,1);nexttile;

@@ -1,13 +1,13 @@
 function FigS9
-  load Tables.mat TP
+  load Tables.mat TRIP
 
   % Top7 WLC parameters
   P = 0.65;
   L0 = 29.28;
   
-  T = TP.Temperature;
-  f = TP.Force;
-  speed = TP.Pullingspeed;
+  T = TRIP.Temperature;
+  f = TRIP.Force;
+  speed = TRIP.Pullingspeed;
 
   % Select temperature and pulling speed classes (rips)
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=21,20<T&T<30];
@@ -18,11 +18,11 @@ function FigS9
   speedclasses = [fast,normal,slow];
   speedtext = ["250-1000nm/s","50-250nm/s","10-50nm/s"];
 
-  [cl1,cl2,cl3] = clusterdefinitions(TP);  
+  [cl1,cl2,cl3] = clusterdefinitions(TRIP);  
   clusters = [cl1,cl2,cl3];
-  deltax = TP.Deltax;
-  force = TP.Force;  
-  T = TP.Temperature;
+  deltax = TRIP.Deltax;
+  force = TRIP.Force;  
+  T = TRIP.Temperature;
   N = length(force);
   L = zeros(N,1);
   for i = 1:N

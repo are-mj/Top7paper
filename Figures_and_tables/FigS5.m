@@ -1,24 +1,24 @@
 function FigS5
-  load Tables TP
+  load Tables TRIP
 
-  T = TP.Temperature;
-  f = TP.Force;
-  speed = TP.Pullingspeed;
+  T = TRIP.Temperature;
+  f = TRIP.Force;
+  speed = TRIP.Pullingspeed;
 
   % Select temperature and pulling speed classes (rips)
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=21,20<T&T<30];
   Ttext = ["3°C<T<=7°C","7°C<T<=14°C","14°C<T<=20°C","20°C<T<=30°C"];
   normal = speed > 50 & speed<250;
-  [cl1,cl2,cl3,outliers] = clusterdefinitions(TP);
+  [cl1,cl2,cl3,outliers] = clusterdefinitions(TRIP);
   figure('Name','FigS5');
   tcl = tiledlayout(2,2,"TileSpacing","compact");
   for i = 1:4
     nexttile;
     hold on
-    plot(TP.Deltax(Tclass(:,i)&normal&cl1),TP.Force(Tclass(:,i)&normal&cl1),'.b');
-    plot(TP.Deltax(Tclass(:,i)&normal&cl2),TP.Force(Tclass(:,i)&normal&cl2),'.r');
-    plot(TP.Deltax(Tclass(:,i)&normal&cl3),TP.Force(Tclass(:,i)&normal&cl3),'.m');
-    plot(TP.Deltax(Tclass(:,i)&normal&outliers),TP.Force(Tclass(:,i)&normal&outliers),'.','color',0.65*[1 1 1]);
+    plot(TRIP.Deltax(Tclass(:,i)&normal&cl1),TRIP.Force(Tclass(:,i)&normal&cl1),'.b');
+    plot(TRIP.Deltax(Tclass(:,i)&normal&cl2),TRIP.Force(Tclass(:,i)&normal&cl2),'.r');
+    plot(TRIP.Deltax(Tclass(:,i)&normal&cl3),TRIP.Force(Tclass(:,i)&normal&cl3),'.m');
+    plot(TRIP.Deltax(Tclass(:,i)&normal&outliers),TRIP.Force(Tclass(:,i)&normal&outliers),'.','color',0.65*[1 1 1]);
     c = get(gca,'children');
     for i = 1:length(c)
       c(i).MarkerSize = 4;

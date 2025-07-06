@@ -5,11 +5,11 @@ function TableS2
 %   7 Columns, 19 Rows, Autofit to contents
 %   Mark table and paste
 %   Some post-processing in Word required (e.g. subscript/superscript)
-  load Tables.mat TPTop7 TPTop7Top7 TPTop7BSA TPTop7FOXP1
+  load Tables.mat TRIPTop7 TRIPTop7Top7 TRIPTop7BSA TRIPTop7FOXP1
 
   Ttext = ["3-7°C","7-14°C","14-20°C","20-30°C"];
   speedtext = ["<50nm/s","50-250nm/s",">250nm/s"];
-  soltables = {TPTop7Top7,TPTop7BSA,TPTop7FOXP1};
+  soltables = {TRIPTop7Top7,TRIPTop7BSA,TRIPTop7FOXP1};
   % soltext = ["Top7/Top7","Top7/BSA","Top7/FOXP1"];
   soltext = ["Top7","BSA","FOXP1"];
  
@@ -20,20 +20,20 @@ function TableS2
     tbl(1,col) = Ttext(col-3);
   end
   for clusterno = 1:3
-    T = TPTop7.Temperature;
+    T = TRIPTop7.Temperature;
     Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=20,20<T&T<=30];
-    speed = TPTop7.Pullingspeed;
+    speed = TRIPTop7.Pullingspeed;
     speedclass = [speed<50,speed>50&speed<250,speed>250];    
     startrow = 2 + (clusterno-1)*6;
     tbl(startrow,1) = strcat("Cluster",num2str(clusterno));
-    [cl1,cl2,cl3] = clusterdefinitions(TPTop7);
+    [cl1,cl2,cl3] = clusterdefinitions(TRIPTop7);
     Clusters = [cl1,cl2,cl3];     
     for speedno = 1:3
       row = startrow-1+speedno;
       tbl(row,2) = "-";
       tbl(row,3) = speedtext(speedno);
       for temp = 1:4
-        f = TPTop7.Force(Tclass(:,temp)&speedclass(:,speedno)&Clusters(:,clusterno));
+        f = TRIPTop7.Force(Tclass(:,temp)&speedclass(:,speedno)&Clusters(:,clusterno));
         tbl(row,3+temp) = sprintf('%4.1f ± %3.1f',mean(f),std(f));
         if isnan(mean(f))
           tbl(row,3+temp) = "-";

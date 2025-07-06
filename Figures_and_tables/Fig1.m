@@ -1,24 +1,24 @@
 function fmean = Fig1
 % Figure 1. Plot force histogram normal speed and different temperatures
   
-  load Tables.mat TP
+  load Tables.mat TRIP
   
-  T = TP.Temperature;
-  f = TP.Force;
-  speed = TP.Pullingspeed;
+  T = TRIP.Temperature;
+  f = TRIP.Force;
+  speed = TRIP.Pullingspeed;
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=21,20<T&T<30];
   Ttext = ["3°C<T<=7°C","7°C<T<=14°C","14°C<T<=20°C","20°C<T<=30°C"];
   slow = speed < 30;
   normal = speed > 30 & speed<250;
   fast = speed > 250;
   
-  [cl1,cl2,cl3] = clusterdefinitions(TP);
+  [cl1,cl2,cl3] = clusterdefinitions(TRIP);
   
   speedtext = ["High speed","Normal speed","Low speed"; ...
     "<50","50-250",""];
   
   ok = cl1|cl2|cl3;
-  selection = false(height(TP),4);
+  selection = false(height(TRIP),4);
   selection(:,1) = normal&Tclass(:,1)&ok;
   seltext{1} = {Ttext(1),speedtext(2)};
   selection(:,2) = normal&Tclass(:,4)&ok;
@@ -43,7 +43,7 @@ function fmean = Fig1
     N = histcounts(f(sel),edges);
     fmean(i) = mean(f(sel));
     p = N/sum(N)/step;
-    [~,rms(i),n,Fplot,pdbell] = fitBell(TP,sel&Clusters,0);
+    [~,rms(i),n,Fplot,pdbell] = fitBell(TRIP,sel&Clusters,0);
     w = repmat(n/sum(n),numel(Fplot),1);
     nexttile
     bar(values,p,1);

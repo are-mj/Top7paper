@@ -6,13 +6,13 @@ function FigS7_ver2
   P = 0.65;
   L0 = 29.28;
 
-  load Tables.mat TP
+  load Tables.mat TRIP
 
-  force = TP.Force;
-  deltax = TP.Deltax;
-  speed = TP.Pullingspeed;
-  T = TP.Temperature;
-  [cl1,cl2,cl3] = clusterdefinitions(TP);
+  force = TRIP.Force;
+  deltax = TRIP.Deltax;
+  speed = TRIP.Pullingspeed;
+  T = TRIP.Temperature;
+  [cl1,cl2,cl3] = clusterdefinitions(TRIP);
   clusters = [cl1,cl2,cl3];
   
   % Select temperature and pulling speed classes (rips)
@@ -20,8 +20,8 @@ function FigS7_ver2
   Ttext = ["3°C<T<=7°C","7°C<T<=14°C","14°C<T<=20°C","20°C<T<=30°C"];
   normal = speed > 50 & speed<250;
 
-  force = TP.Force;  
-  T = TP.Temperature;
+  force = TRIP.Force;  
+  T = TRIP.Temperature;
   N = length(force);
   L = zeros(N,1);
   for i = 1:N
