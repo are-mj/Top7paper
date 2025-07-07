@@ -1,4 +1,4 @@
-function tbl = Table1(Tout)
+function Table1(Tout)
 % Data for Table1 in main paper.
 % Prints tab-sepatated table that can be copied into a Word table
 % in Word: Insert > Table > Insert Table... 

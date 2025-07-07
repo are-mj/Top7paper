@@ -1,4 +1,4 @@
-function tbl = TableS4
+function TableS4
 % Data for TableS4 in Supplement.
 % Input: Tout 
 % Prints tab-sepatated table that can be copied into a Word table
