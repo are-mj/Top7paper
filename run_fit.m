@@ -1,13 +1,13 @@
 function Tout = run_fit(TRIP,TZIP)
 % Fits parameters for  Bell_unfold, Bell_refold, Dudko, DGkin and DGCrooks
-% and calcuates parameter 95% conficence interval usng bootstrapping
+% and calcuates parameter 95% conficence interval using bootstrapping
 % function bootci
-% Output: Table of fitted parameters for all sets of themperaturem pulling
+% Output: Table of fitted parameters for all sets of themperature, pulling
 % speed and clusters
 %
-% Supercedes earlier versions that used anaytical confidence intervals  
+% Supersedes earlier versions that used anaytical confidence intervals  
 % from function nlparci. This often gives incorrect results in combiantion
-% with bounded paramters search.
+% with bounded parameters search.
 
 % Version 2.0 2025-06-25 Calculate confidence intervals by bootci
 
@@ -15,7 +15,7 @@ function Tout = run_fit(TRIP,TZIP)
   theta0BellP = [1;-3];
   theta0BellR = [4;4];
   theta0Dudko = [100;2;-3];
-  nboot = 1000;
+  nboot = 1000;   % Bootstrap samples for calculating confdence intervals
   kB = 0.01380649; % Boltzmann's constant (zJ/K/molecule)
 
   Tout = cell2table(cell(0,16),'VariableNames',{'Text','Clusterno','dx',...
