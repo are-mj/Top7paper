@@ -20,8 +20,8 @@ function fmean = FigS4B
   texts = strcat(Ttext(2:3)," normal speed");
   clusters = [cl1,cl2,cl3];  
 
-  step = 1;
-  edges = 5:step:50;
+  Fstep = 1;
+  edges = 5:Fstep:50;
   values = (edges(1:end-1)+edges(2:end))/2;
   figure('Name','S4B');
   tl = tiledlayout(2,1,'TileSpacing','compact');
@@ -30,7 +30,7 @@ function fmean = FigS4B
     sel = selection(:,i);
     N = histcounts(f(sel),edges);
     fmean(i) = mean(f(sel));
-    p = N/sum(N)/step;
+    p = N/sum(N)/Fstep;
     [~,~,n,Fplot,pdbell] = fitBell(TRIP,clusters&selection(:,i),0);
     % [~,~,~,n,Fplot,pdbell] = fit_dual_Bell(TRIP,runcase,clusters,0);
     w = n/sum(n);
