@@ -1,6 +1,6 @@
 function [DG,DGci] = fit_Crooks(Tun,Tre,selP,selR,Clusters,texts,plotting)
 % Calculate DG from unfolding and refolding parameters dx and log10k0 
-% Unfolding for high and low force clusters, Refolding for all data.
+% Unfolding for all force clusters, Refolding for all data.
 % DG equals the work at the point where unfolding and refolding work are
 % equal, according to the Crooks fluctuation theorem
 % Output:
@@ -8,7 +8,7 @@ function [DG,DGci] = fit_Crooks(Tun,Tre,selP,selR,Clusters,texts,plotting)
 %   DGci:  Confidence interval calculated by bootstrapping
 
 % 20240209: Specified analytical search range in match.
-% 20250529: Changed from standard deviation ti 95% confidence interval
+% 20250529: Changed from standard deviation to 95% confidence interval
 
 % Do calculations and plotting in kcal/kmol
 conversion = 0.1439326;  % Energy units kcal/kmol 
@@ -38,13 +38,8 @@ conversion = 0.1439326;  % Energy units kcal/kmol
   f_unfold = Tun.Force(selP);
   deltax_unfold = Tun.Deltax(selP);
 
-  % tbl = Tun;
-  % selected = selP;
   n = sum(Clusters(selP,:));
-  nclusters = find(n>8);    % Clusters with more that 8 elements  
-
-  % Tmean = mean(tbl.Temperature(selected),'omitnan');
-  % Fdot = mean(tbl.Fdot(selected));
+  nclusters = find(n>9);    % Clusters with more that 8 rips  
 
   ncl = numel(nclusters);   % Number of clusters
   fu = cell(ncl,1);
@@ -60,7 +55,6 @@ conversion = 0.1439326;  % Energy units kcal/kmol
     hh = [hh,h];
     colors = [0 0 1;0.5 0.2 0.5;0.3 0.6 0.6;.5*[1 1 1]];
     h(1).Color = colors(1,:);
-    % legtext = {'','Normal distribution'};
     legtext = "Refolding";
   end
   for cl = find(n>9)  % Nonzero parameter columns
@@ -80,12 +74,6 @@ conversion = 0.1439326;  % Energy units kcal/kmol
       hh = [hh,h];
       h(1).Color = colors(cl+1,:);
       s = sprintf('Cluster %d',cl);
-      % if cl == 1
-      %   s = 'Low force unfolding';
-      % else
-      %   s = 'High force unfolding';
-      % end
-      % legtext = [legtext,{s,'Normal distribution'}];
       legtext = [legtext;s];
       title(texts)
       xlabel('');ylabel(''); % remove fitdist's standard labels
