@@ -14,7 +14,7 @@ function [ucases,rcases] = cases(TRIP,TZIP)
 %     Similar to ucases but lacking clusters
 
   if nargin < 1
-    load tables TRIP TZIP
+    load Tables TRIP TZIP
   end
   
   % Unfold cases:
