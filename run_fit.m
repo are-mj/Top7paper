@@ -26,7 +26,6 @@ function Tout = run_fit(TRIP,TZIP)
   dF = 1;
   k = 1;  % Rowno in Tout
   for i = 1:numel(ucases)  
-  % for i = 2
     Tmean = mean(TRIP.Temperature(ucases(i).selected));
     Fdot = mean(TRIP.Fdot(ucases(i).selected));
     forceR = TZIP.Force(rcases(i).selected);
@@ -132,6 +131,7 @@ function [th,rms] = BellfunR(fs,dF,Tmean,Fdot,theta0)
   [pd,edges] = probdens(fs,dF);
   [th,rms] = fit_Bell_refold(pd,edges,Tmean,Fdot,theta0);
   if rms > 0.05
+    % If the fit is bad, try with another theta0
     theta0 = [9;4];
     [th,rms] = fit_Bell_refold(pd,edges,Tmean,Fdot,theta0);
     if rms > 0.05
