@@ -20,8 +20,8 @@ function FigS5
     plot(TRIP.Deltax(Tclass(:,i)&normal&cl3),TRIP.Force(Tclass(:,i)&normal&cl3),'.m');
     plot(TRIP.Deltax(Tclass(:,i)&normal&outliers),TRIP.Force(Tclass(:,i)&normal&outliers),'.','color',0.65*[1 1 1]);
     c = get(gca,'children');
-    for i = 1:length(c)
-      c(i).MarkerSize = 4;
+    for j = 1:length(c)
+      c(j).MarkerSize = 4;
     end
     xx = linspace(10,25);
     % plot(xx,wlc(xx,.65,290,29.28),'k');
