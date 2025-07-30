@@ -20,7 +20,7 @@ function fmean = FigS4B
   texts = strcat(Ttext(2:3)," normal speed");
   clusters = [cl1,cl2,cl3];  
 
-  Fstep = 1;
+  Fstep = 2;
   edges = 5:Fstep:50;
   values = (edges(1:end-1)+edges(2:end))/2;
   figure('Name','S4B');
@@ -40,13 +40,14 @@ function fmean = FigS4B
     plot(Fplot,max(w.*pdbell,[],2),'r','LineWidth',1.5) 
     % plot(Fplot,pdbell*w','r','LineWidth',1.5);
     title(texts(i));
-    text(45,0.07,sprintf('n = %d',sum(N)))
+    text(40,0.07,sprintf('n = %d',sum(N)))
     ylim([0,0.1])
+    xlim([4,55])
     if i == 2
       legend('Experiment','Model','Location','northwest');
     end
   end
-  title(tl,'Force distributions for normal pulling speed')
+  % title(tl,'Force distributions for normal pulling speed')
   xlabel(tl,'Force (pN)');ylabel(tl,'Probability density (pN^-^1)')
   fprintf('Figure S4B\n')
   fprintf('%14s     %20s\n','Temperature','Mean unfolding force (pN)')
