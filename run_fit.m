@@ -8,6 +8,8 @@ function Tout = run_fit(TRIP,TZIP)
 % Supersedes earlier versions that used anaytical confidence intervals  
 % from function nlparci. This often gives incorrect results in combiantion
 % with bounded parameters search.
+%
+% NOTE: Energy values are in kcal/mol!
 
 % Version 2.0 2025-06-25 Calculate confidence intervals by bootci
 
@@ -15,11 +17,11 @@ function Tout = run_fit(TRIP,TZIP)
   theta0BellP = [1;-3];
   theta0BellR = [4;4];
   theta0Dudko = [100;2;-3];
-  nboot = 1000;   % Bootstrap samples for calculating confdence intervals
+  nboot = 500;   % Bootstrap samples for calculating confdence intervals
   kB = 0.01380649; % Boltzmann's constant (zJ/K/molecule)
 
-  Tout = cell2table(cell(0,16),'VariableNames',{'Text','Clusterno','dx',...
-    'cidx','log10k0','cilog10k0'...
+  Tout = cell2table(cell(0,17),'VariableNames',{'Text','Clusterno',...
+    'events','dx','cidx','log10k0','cilog10k0'...
     'DGDudko','ciDGDudko','dxDudko','cidxDudko','log10k0Dudko',...
     'cilog10k0Dudko','DGkin','ciDGkin','DGCrooks','ciDGCrooks'});
   [ucases,rcases] = cases(TRIP,TZIP);
@@ -28,7 +30,6 @@ function Tout = run_fit(TRIP,TZIP)
   for i = 1:numel(ucases)  
     Tmean = mean(TRIP.Temperature(ucases(i).selected));
     Fdot = mean(TRIP.Fdot(ucases(i).selected));
-    forceR = TZIP.Force(rcases(i).selected);
     Text = rcases(i).text;
   
     % Refold
@@ -47,32 +48,46 @@ function Tout = run_fit(TRIP,TZIP)
     usel = ucases(i).selected;
     rsel = rcases(i).selected;
     cls = ucases(i).clusters;
-    texts = strcat(ucases(i).text,rcases(i).text);
-    forceR = TZIP.Force(rsel);
-    thfun = @(f) BellfunR(f,dF,Tmean,Fdot,theta0BellR);
-    thR = thfun(forceR);
-    dx = thR(1);
-    log10k0 = thR(2);
-    log10k0R = log10k0;  % For use in DGkin
-    cithR = bootci(nboot,thfun,forceR)';
-    cidx = cithR(1,:);
-    cilog10k0 = cithR(2,:);
-    cilogk0widthZip = kB*(Tmean+273.15)*diff(cilog10k0); % For use in DGkin
-    Tout = [Tout;table(Text,Clusterno,dx,cidx,log10k0,cilog10k0,DGDudko,...
-      ciDGDudko,dxDudko,cidxDudko,log10k0Dudko,cilog10k0Dudko,DGkin,...
-      ciDGkin,DGCrooks,ciDGCrooks)];
-    k = k+1;
-
+    events = sum(rsel);
+    if events > 10
+      texts = strcat(ucases(i).text,rcases(i).text);
+      forceR = TZIP.Force(rsel);
+      thfun = @(f) BellfunR(f,dF,Tmean,Fdot,theta0BellR);
+      thR = thfun(forceR);
+      dx = thR(1);
+      log10k0 = thR(2);
+      log10k0R = log10k0;  % For use in DGkin
+      if length(forceR) > 10
+        cithR = bootci(nboot,thfun,forceR)';
+      else
+        cithR = NaN*ones(2);
+      end
+      cidx = cithR(1,:);
+      cilog10k0 = cithR(2,:);
+      cilogk0widthZip = kB*(Tmean+273.15)*diff(cilog10k0); % For use in DGkin
+      Tout = [Tout;table(Text,Clusterno,events,dx,cidx,log10k0,cilog10k0,DGDudko,...
+        ciDGDudko,dxDudko,cidxDudko,log10k0Dudko,cilog10k0Dudko,DGkin,...
+        ciDGkin,DGCrooks,ciDGCrooks)];
+      k = k+1;
+    end
     % Unfold
     Text = ucases(i).text;
-    usel = ucases(i).selected;
-    rsel = rcases(i).selected;
-    [G(:,i),Gciu(:,2*i+[1,2])] = fit_Crooks(TRIP,TZIP,usel,rsel,cls,texts,0);
+    usel = ucases(i).selected;  
+    DG = zeros(3,1);
+    DGci = zeros(3,2);
+
+    if sum(rsel) > 10
+      [G(:,i),Gciu(:,2*i+[1,2])] = fit_Crooks(TRIP,TZIP,usel,rsel,cls,texts,0);
+    end
 
     okclusters = find(sum(ucases(i).clusters)>9);
     for j = okclusters
       Clusterno = j;
       selection = ucases(i).selected & ucases(i).clusters(:,j);
+      events = sum(selection);
+      if sum(selection) < 10
+        continue
+      end
       % fprintf('%25s,  %d\n',ucases(i).text,j);
       force = TRIP.Force(selection);
 
@@ -107,8 +122,9 @@ function Tout = run_fit(TRIP,TZIP)
 
       DGCrooks = G(j,i)*conversion;
       ciDGCrooks = Gciu(j,2*i+[1,2])*conversion;
+      fprintf('%30s %4d %4d\n',Text,Clusterno,sum(selection));
 
-      Tout = [Tout;table(Text,Clusterno,dx,cidx,log10k0,cilog10k0,DGDudko,...
+      Tout = [Tout;table(Text,Clusterno,events,dx,cidx,log10k0,cilog10k0,DGDudko,...
         ciDGDudko,dxDudko,cidxDudko,log10k0Dudko,cilog10k0Dudko,DGkin,...
         ciDGkin,DGCrooks,ciDGCrooks)];
       k = k+1;
