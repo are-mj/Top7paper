@@ -28,9 +28,9 @@ function W = stretchwork(force,deltax,P,T,L0)
   x0 = 0;
   W = zeros(size(force));
   for i = 1:numel(force)
-    x1 = wlc_inverse(force(i),P,T,L0,simple);
+    x1 = wlc_inverse(force(i),P,T(i),L0,simple);
     scale = deltax(i)/x1;
-    fun = @(x) wlc(x,P,T,L0,simple);
+    fun = @(x) wlc(x,P,T(i),L0,simple);
     W(i) = integral(fun,x0,x1)*scale;
   end
 end

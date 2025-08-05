@@ -18,14 +18,14 @@ function T = create_table(st)
     Trapx = st.ripx(i);
     Fdot = st.fdot(i);
     Slope_b = st.pfx_b(i,1);
-    Slope_a = st.pfx_a(i,i);
+    Slope_a = st.pfx_a(i,2);
     Pullingspeed = st.pullingspeed(i); 
     Temperature = st.temperature(i);
     Topforce = st.topforce(i);
     Timestep = st.dt(i);
     Noise = st.noise(i);
     Cycleno = st.cycleno(i);
-    Work = st.work;
+    Work = st.work(i);
     T = [T;table(Filename,Time,Deltax,Force,Temperature,Forceshift,Trapx,...
             Fdot,Slope_b,Slope_a,Pullingspeed,Topforce,Noise,Cycleno,Work,Timestep)];
   end
