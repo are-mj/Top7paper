@@ -3,7 +3,7 @@ function [cl1,cl2,cl3,outliers,clustershapes] = clusterdefinitions(Trip)
 % Input: Trip: Results table for rips
 % Output: Clusters: 3 by height(Trip) logical array
 %         Clusters(i,j) = true if rip no. i is in cluster j
-%         clustersahpes: polyshape objects for plotting the cluster extent
+%         clustershapes: polyshape objects for plotting the cluster extent
 %         in a Force  vs Delta x scatter plot
 % NOTE:  If very few rips (e.g for slow pulling speed), clusters 2 and 3
 %        is often combined to 1
