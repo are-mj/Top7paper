@@ -86,7 +86,7 @@ conversion = 0.1439326;  % Energy units kcal/kmol
       ylim([0,0.3]);
     end
     set(gca,'xtick',[3,10,30,100])
-    legend(hh(2:2:8),legtext);
+    legend(hh(2:2:length(hh)),legtext);
   end
 end
 
