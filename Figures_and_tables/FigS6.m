@@ -1,4 +1,4 @@
-function FigS7_ver2
+function FigS6
 % Apparent contour lengths
 % v2: Split on clusters
 

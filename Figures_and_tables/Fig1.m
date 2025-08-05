@@ -15,18 +15,18 @@ function fmean = Fig1
   [cl1,cl2,cl3] = clusterdefinitions(TRIP);
   
   speedtext = ["High speed","Normal speed","Low speed"; ...
-    "<50","50-250",""];
+    "<50","50-250",">250"];
   
   ok = cl1|cl2|cl3;
   selection = false(height(TRIP),4);
   selection(:,1) = normal&Tclass(:,1)&ok;
-  seltext{1} = {Ttext(1),speedtext(2)};
+  seltext{1} = {Ttext(1),speedtext(1,2)};
   selection(:,2) = normal&Tclass(:,4)&ok;
-  seltext{2} = {Ttext(4),speedtext(2)};
+  seltext{2} = {Ttext(4),speedtext(1,2)};
   selection(:,3) = fast&ok&Tclass(:,4);
-  seltext{3} = {Ttext(4),speedtext(1)};
+  seltext{3} = {Ttext(4),speedtext(1,1)};
   selection(:,4) = slow&ok&Tclass(:,4);
-  seltext{4} = {Ttext(4),speedtext(3)};
+  seltext{4} = {Ttext(4),speedtext(1,3)};
   
   step = 2;
   edges = 2:step:50;
