@@ -1,17 +1,17 @@
-function [ucases,rcases] = cases(TRIP,TZIP)
+function [ripcases,zipcases] = cases(TRIP,TZIP)
 % Create logical arrays for combinations of 
 %   Temperature
 %   Pulling speed
 %   Cluster
 % Output:
-%   ucases : Unfoldig cases
-%     ucases(m).selected is a logical column vector
-%       True if TRIP.Temperature is in ucases(m).Tclass
-%       and TRIP.Pullingspeed is in ucases(m).speedclass
-%     ucases(m).clusters is a n by 3 (or 2) logical array
-%     ucases(m).text describes tha case
-%   rcases : Refolding cases
-%     Similar to ucases but lacking clusters
+%   ripcases : Unfoldig cases
+%     ripcases(m).selected is a logical column vector
+%       True if TRIP.Temperature is in ripcases(m).Tclass
+%       and TRIP.Pullingspeed is in ripcases(m).speedclass
+%     ripcases(m).clusters is a n by 3 (or 2) logical array
+%     ripcases(m).text describes tha case
+%   zipcases : Refolding cases
+%     Similar to ripcases but lacking clusters
 
   if nargin < 1
     load Tables TRIP TZIP
@@ -41,13 +41,13 @@ function [ucases,rcases] = cases(TRIP,TZIP)
     end  
     for j = speeds % Speed
       m = m+1;
-      ucases(m).selected = Tclass(:,i) & speedclass(:,j);
-      ucases(m).text = strcat("Unfolding, ",Ttext(i),", ",speedtext(j));
-      ucases(m).clusters = Clusters & ucases(m).selected;
+      ripcases(m).selected = Tclass(:,i) & speedclass(:,j);
+      ripcases(m).text = strcat("Unfolding, ",Ttext(i),", ",speedtext(j));
+      ripcases(m).clusters = Clusters & ripcases(m).selected;
       if i==4 && j == 3
-        ucases(m).clusters = [cl1,cl2|cl3] & ucases(m).selected;
+        ripcases(m).clusters = [cl1,cl2|cl3] & ripcases(m).selected;
       end
-      ucases(m).nrips = sum(ucases(m).clusters);
+      ripcases(m).nrips = sum(ripcases(m).clusters);
     end
   end
 
@@ -73,12 +73,12 @@ function [ucases,rcases] = cases(TRIP,TZIP)
       end
       for j = speeds % Speed
           m = m+1;
-          rcases(m).selected = Tclass(:,i) & speedclass(:,j);
-          rcases(m).text = strcat("Refolding, ",Ttext(i),", ",speedtext(j));
-          rcases(m).nrips = sum(ucases(m).selected);
+          zipcases(m).selected = Tclass(:,i) & speedclass(:,j);
+          zipcases(m).text = strcat("Refolding, ",Ttext(i),", ",speedtext(j));
+          zipcases(m).nrips = sum(ripcases(m).selected);
       end
     end
   else
-    rcases = NaN;
+    zipcases = NaN;
   end
 end
