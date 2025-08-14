@@ -10,6 +10,7 @@ function [bellth,rms,n,Fplot,pdplot,pdtot,Fbins,w] = fitBell(tbl,clusters,plotti
     dx0 = 1;log10k0 = -3; theta0 = [dx0;log10k0];
     allclusters = any(clusters,2);
     fitfunction = @fit_Bell_unfold;
+    resultsfunction = @Bell_unfold_probability;
     % tracetype = 'Unfolding';
   else
     Fplot = linspace(3,18,500)';
@@ -17,6 +18,7 @@ function [bellth,rms,n,Fplot,pdplot,pdtot,Fbins,w] = fitBell(tbl,clusters,plotti
     theta0 = [4;4];
     allclusters = true(size(tbl.Force));
     fitfunction = @fit_Bell_refold;
+    resultsfunction = @Bell_refold_probability;
     % tracetype = 'Refolding';
   end
   
@@ -53,8 +55,8 @@ function [bellth,rms,n,Fplot,pdplot,pdtot,Fbins,w] = fitBell(tbl,clusters,plotti
     % bellciR = bootci(nboot,thetafun,force);
 
     bellth(:,i) = fitfunction(pd_obs,edges,Tmean,Fdotmean,theta0);
-    pdplot(:,i) = Bell_unfold_probability(bellth(:,i),Fplot,Tmean,Fdotmean);
-    pdcalc(:,i) = Bell_unfold_probability(bellth(:,i),Ftot,Tmean,Fdotmean);
+    pdplot(:,i) = resultsfunction(bellth(:,i),Fplot,Tmean,Fdotmean);
+    pdcalc(:,i) = resultsfunction(bellth(:,i),Ftot,Tmean,Fdotmean);
   end
   w = repmat(n/sum(n),ntot,1);
   residual = max(w.*pdcalc,[],2)-pdtot;
@@ -77,9 +79,9 @@ function [bellth,rms,n,Fplot,pdplot,pdtot,Fbins,w] = fitBell(tbl,clusters,plotti
     title('Bell model')
   end
 end
-
-function [th,resnorm] = Bellfun(fs,dF,Tmean,Fdot,theta0)
-  [pd,edges] = probdens(fs,dF);
-  [th,resnorm] = fit_Bell_unfold(pd,edges,Tmean,Fdot,theta0);
-  th = th';
-end
+% 
+% function [th,resnorm] = Bellfun(fs,dF,Tmean,Fdot,theta0)
+%   [pd,edges] = probdens(fs,dF);
+%   [th,resnorm] = fit_Bell_unfold(pd,edges,Tmean,Fdot,theta0);
+%   th = th';
+% end

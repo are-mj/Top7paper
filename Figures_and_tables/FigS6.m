@@ -1,59 +1,27 @@
 function FigS6
-% Apparent contour lengths
-% v2: Split on clusters
+  load Tables TRIP
+  [cl1,cl2,cl3,outliers,clustershapes] = clusterdefinitions(TRIP);
+  figure('Name','FigS6'); hold on
+  plot(TRIP.Deltax(cl1),TRIP.Force(cl1),'.b');
+  plot(TRIP.Deltax(cl2),TRIP.Force(cl2),'.r');
+  plot(TRIP.Deltax(cl3),TRIP.Force(cl3),'.m');
+  plot(TRIP.Deltax(outliers),TRIP.Force(outliers),'.','color',0.65*[1 1 1]);
+  c = get(gca,'children');
+  for i = 1:length(c)
+    c(i).MarkerSize = 4;
+  end
 
-  % Top7 WLC parameters
-  P = 0.65;
-  L0 = 29.28;
+  xx = linspace(10,25);
+  plot(xx,wlc(xx,.65,290,29.96),'k');
+  hold on;
+  for i = 1:3; 
+    plot(clustershapes(i),'facealpha',0,'facecolor','w');end
+  box on;
+  ylim([5,55]); 
+  xlim([5 30]);
+  title('Scatter plot of unfolding force and Δx. All unfoldings.');
+  xlabel('Δx (nm)'); ylabel('Force (pN)');
+  fprintf('Figure S3\n')
+  legend('Cluster 1','Cluster 2','Cluster 3','Outliers','WLC','location','northwest');
 
-  load Tables.mat TRIP
-
-  force = TRIP.Force;
-  deltax = TRIP.Deltax;
-  speed = TRIP.Pullingspeed;
-  T = TRIP.Temperature;
-  [cl1,cl2,cl3] = clusterdefinitions(TRIP);
-  clusters = [cl1,cl2,cl3];
   
-  % Select temperature and pulling speed classes (rips)
-  Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=21,20<T&T<30];
-  Ttext = ["3°C<T<=7°C","7°C<T<=14°C","14°C<T<=20°C","20°C<T<=30°C"];
-  normal = speed > 50 & speed<250;
-
-  force = TRIP.Force;  
-  T = TRIP.Temperature;
-  N = length(force);
-  L = zeros(N,1);
-  for i = 1:N
-    deltax0 = wlc_inverse(force(i),P,T(i)+273.15,L0);
-    L(i) = L0*deltax(i)/deltax0;
-  end
-
-  edges = 6.5:38.5;
-  figure('name','FigS6');
-  % tl = tiledlayout(2,1);
-  tl = tiledlayout(2,2,'TileSpacing','compact');
-  fprintf('Figure 1S6_ver2\n')
-  fprintf('Mean refolding contour lengths\n')
-  fprintf('%14s %14s\n','Temperature','Mean length (nm)')
-  for k = 1:4
-    nexttile
-    for j = 1:size(clusters,2)
-      hold on;
-      histogram(L(Tclass(:,k)&normal&clusters(:,j)),edges);
-    end
-    fprintf('%14s   %5.2f\n',Ttext(k),mean(L(Tclass(:,k)&normal)));
-    title(Ttext(k));
-    if k<=2
-      set(gca,'XTick',[])
-    end    
-    if k==2
-      legend('Cluster1','Cluster2','Cluster3','Location','northwest')
-    end
-    box on
-  end
-  title(tl,'Rip apparent contour length histograms, normal speed')
-  xlabel(tl,'Contour lenghth (nm)')
-  ylabel(tl,'Number of events')
-
-end

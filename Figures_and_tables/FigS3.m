@@ -1,29 +1,46 @@
 function FigS3
-  load Tables TRIP
-  [cl1,cl2,cl3,outliers,clustershapes] = clusterdefinitions(TRIP);
-  figure('Name','FigS3'); hold on
-  plot(TRIP.Deltax(cl1),TRIP.Force(cl1),'.b');
-  plot(TRIP.Deltax(cl2),TRIP.Force(cl2),'.r');
-  plot(TRIP.Deltax(cl3),TRIP.Force(cl3),'.m');
-  plot(TRIP.Deltax(outliers),TRIP.Force(outliers),'.','color',0.65*[1 1 1]);
-  c = get(gca,'children');
-  for i = 1:length(c)
-    c(i).MarkerSize = 4;
-  end
+  load Tables TRIP TZIP
+  figure('Name','FigS3'); 
+  xx = linspace(0,25);
+  tl = tiledlayout(1,2,"TileSpacing","compact");
+  nexttile;
+    plot(TRIP.Deltax,TRIP.Force,'.','MarkerSize',4);
+    hold on;
+    plot(xx,wlc(xx,.65,290,29.96),'k');
+    title('A: Rips')
+    xlabel('Δx (nm)'); ylabel('Force (pN)');
+    xlim([5,30]);ylim([5,55])
+  nexttile
+    plot(-TZIP.Deltax,TZIP.Force,'.','MarkerSize',4);
+    hold on;
+    plot(xx,wlc(xx,.65,290,29.96),'k');    
+    title('B: Zips')
+    xlabel('Δx (nm)'); ylabel('Force (pN)');
+    ylim([3,15]); 
+    xlim([0 30]);
 
-
-  xx = linspace(10,25);
-  % plot(xx,wlc(xx,.65,290,29.28),'k');
-  plot(xx,wlc(xx,.65,290,29.96),'k');
-  hold on;
-  for i = 1:3; 
-    plot(clustershapes(i),'facealpha',0,'facecolor','w');end
-  box on;
-  ylim([5,55]); 
-  xlim([5 30]);
-  title('Scatter plot of unfolding force and Δx. All unfoldings.');
-  xlabel('Δx (nm)'); ylabel('Force (pN)');
-  fprintf('Figure S3\n')
-  legend('Cluster 1','Cluster 2','Cluster 3','Outliers','WLC','location','northwest');
-
+  title(tl,'Rip/zip scatter plots.  All experiments')
   
+  pos = get(gcf,'Position');
+  set(gcf,"Position",pos.*[1 1 1.6 1])
+
+  % plot(-TZIP.Deltax,TZIP.Force,'.','MarkerSize',5);
+  % hold on
+  % xx = linspace(0,25);
+  % plot(xx,wlc(xx,.65,290,29.96),'k');
+  % hold on;
+  % ylim([3,15]); 
+  % xlim([0 30]);
+  % title('Zip force vs Δx scatter plot. All experiments.');
+  % xlabel('Δx (nm)'); ylabel('Force (pN)');
+  % fprintf('Figure S3A\n')
+  % legend('Cluster 1','Cluster 2','Cluster 3','Outliers','WLC','location','northwest');
+
+end
+
+function [cl1,outliers] = zip_clusters(TZIP)
+% Define outier zips
+  cl1 = TZIP.Force > 3 & TZIP.Force < 11 & TZIP.Deltax < -6 ...
+    & TZIP.Deltax > -25;
+  outliers = ~cl1;
+end

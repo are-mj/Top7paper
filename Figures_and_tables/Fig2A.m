@@ -10,16 +10,13 @@ function Fig2A
   speed = TRIP.Pullingspeed;
   Tclass = [3<T&T<=7 , 7<T&T<=14 , 14<T&T<=21,20<T&T<30];
   Ttext = ["3°C<T<=7°C","7°C<T<=14°C","14°C<T<=20°C","20°C<T<=30°C"];
-  % slow = speed < 30;
-  % normal = speed > 70 & speed<140;
-  % fast = speed > 360;
   slow = speed < 50;
   normal = speed > 50 & speed<250;
   fast = speed > 250;
   [cl1,cl2,cl3] = clusterdefinitions(TRIP);
   ok = cl1|cl2|cl3;
-  selectionP = [normal & Tclass(:,1),normal & Tclass(:,4)];
-  texts = Ttext([1,4]);
+  selectionP = normal & Tclass;
+  % texts = Ttext([1,4]);
   clusters = [cl1,cl2,cl3];
 
   % Select relaxing trace events (zips)
@@ -31,16 +28,16 @@ function Fig2A
   slow = speed < 30;
   normal = speed > 70 & speed<140;
   fast = speed > 360;
-  selectionR = [normal & Tclass(:,1),normal & Tclass(:,4)]; 
+  selectionR = normal & Tclass; 
 
   fprintf('Figure 2A\n')
   fprintf("Crooks' ΔG for normal pulling speed\n" )
   fprintf('%14s %8s   %12s\n','Temperature','Cluster','ΔG (kcal/mol)')  
 
   figure('Name','Fig2A');
-  tcl = tiledlayout(2,1,"TileSpacing","compact");
-  for i = 1:2
-    [DG,DGstd] = fit_Crooks(TRIP,TZIP,selectionP(:,i),selectionR(:,i),clusters,texts(i),1);
+  tcl = tiledlayout(2,2,"TileSpacing","compact");
+  for i = 1:4
+    [DG,DGstd] = fit_Crooks(TRIP,TZIP,selectionP(:,i),selectionR(:,i),clusters,Ttext(i),1);
 
     % set line color to black:
     c = get(gca,'children');

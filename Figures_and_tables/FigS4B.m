@@ -20,7 +20,7 @@ function fmean = FigS4B
   texts = strcat(Ttext(2:3)," normal speed");
   clusters = [cl1,cl2,cl3];  
 
-  Fstep = 2;
+  Fstep = 1;
   edges = 5:Fstep:50;
   values = (edges(1:end-1)+edges(2:end))/2;
   figure('Name','S4B');
