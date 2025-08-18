@@ -1,6 +1,5 @@
-function fmean = FigS7
-% Figure S7 B and D. Plot force histogram normal speed and different temperatures
-
+function FigS7
+% Figure S7 B. Plot force histogram not shown in Figure 1
   load Tables.mat TRIP
 
   % Select pulling trace events (rips)
@@ -12,50 +11,56 @@ function fmean = FigS7
   slow = speed < 50;
   normal = speed > 50 & speed<250;
   fast = speed > 250;
-  % speeds = [fast,normal,slow;]
-  % speedtext = ["250-1000nm/s","50-250nm/s","10-50nm/s"];
+  speedtext = ["High speed","Normal speed","Low speed"];
   [cl1,cl2,cl3] = clusterdefinitions(TRIP);
 
-  selection = [normal & Tclass(:,2),normal & Tclass(:,3)];
+  selection = [normal & Tclass(:,2),normal & Tclass(:,3), ...
+    fast & Tclass(:,1),fast & Tclass(:,4)];
+  seltext{1} = {Ttext(2);speedtext(2)};
+  seltext{2} = {Ttext(3);speedtext(2)};
+  seltext{3} = {Ttext(1);speedtext(1)};
+  seltext{4} = {Ttext(4);speedtext(1)};
+
   % texts = strcat(Ttext(2:3)," normal speed");
   clusters = [cl1,cl2,cl3];  
 
   Fstep = 1;
   edges = 5:Fstep:50;
   values = (edges(1:end-1)+edges(2:end))/2;
-  figure('Name','S4B');
-  tl = tiledlayout(2,1,'TileSpacing','compact');
-  fmean = zeros(4,1);
-  for i = 1:2
+  figure('Name','S7');
+  tl = tiledlayout(2,4,'TileSpacing','compact');
+  for i = 1:4
     sel = selection(:,i);
     N = histcounts(f(sel),edges);
-    fmean(i) = mean(f(sel));
     p = N/sum(N)/Fstep;
     [~,~,n,Fplot,pdbell] = fitBell(TRIP,clusters&selection(:,i),0);
-    % [~,~,~,n,Fplot,pdbell] = fit_dual_Bell(TRIP,runcase,clusters,0);
     w = n/sum(n);
     nexttile(i)
-    h(i,1) = bar(values,p,1);
+    bar(values,p,1);
     hold on;
-    h(i,2) = plot(Fplot,max(w.*pdbell,[],2),'r','LineWidth',1.5) 
-    % plot(Fplot,pdbell*w','r','LineWidth',1.5);
-    % title(texts(i));
-    text(25,0.4,{Ttext(i+1),"Normal speed",sprintf('n = %d',sum(N))}, ...
-      "HorizontalAlignment","center")
-    ylim([0,0.1])
+    plot(Fplot,max(w.*pdbell,[],2),'r','LineWidth',1.5) 
+    text(45,0.1,sprintf('n = %d',sum(N)))
+    text(30,0.105,seltext{i},'FontName','Times New Roman','FontWeight', ...
+      'bold','HorizontalAlignment','center');
+    ylim([0,0.12])
     xlim([4,55])
     if i == 1
-      legend('Experiment','Model','Location','northwest');
-    end
+      h = legend('Experiment','Model','Location','East');
+      ylabel('Rip');
+      set(gca,'YTick',0:0.05:0.1);
+      text(-5,0.11,'C','FontName','Times New Roman','FontSize',18,'FontWeight','Bold')
+    else
+      set(gca,'YTick',[]);
+    end     
   end
   % title(tl,'Force distributions for normal pulling speed')
   xlabel(tl,'Force (pN)');ylabel(tl,'Probability density (pN^-^1)')
   fprintf('Figure S4B\n')
   fprintf('%14s     %20s\n','Temperature','Mean unfolding force (pN)')
-  for i = 1:4
-    fprintf('%14s %14.2f\n',Ttext(i),fmean(i))
-  end
-
+  pos = get(gcf,'position');
+  set(gcf,'Position',pos.*[0.1 1 2.7 1]);  
+  pos = get(h,'Position');
+  set(h,'Position',pos.*[1 1.04 1 1]);  % Nudge legend upwards
 % ZIP:
   load Tables.mat TZIP
   
@@ -68,34 +73,30 @@ function fmean = FigS7
   normal = speed > 30 & speed<250;
   fast = speed > 250;
   
-  speedtext = ["High speed","Normal speed","Low speed"; ...
-    ">250","50-250","<50"];
-  
-  ok = cl1|cl2|cl3;
-  selection = false(height(TZIP),2);
-  selection(:,1) = normal&Tclass(:,2);
-  seltext{1} = {Ttext(2);speedtext(2,2)};
-  selection(:,2) = normal&Tclass(:,3);
-  seltext{2} = {Ttext(3),speedtext(2,2)};
+  selection = [normal & Tclass(:,2),normal & Tclass(:,3), ...
+    fast & Tclass(:,1),fast & Tclass(:,4)];
 
   step = 0.5;
   edges = 2:step:50;
   values = (edges(1:end-1)+edges(2:end))/2;
-  fmean = zeros(4,1);
-  for i = 1:2
+  for i = 1:4
     sel = selection(:,i);
     N = histcounts(f(sel),edges);
-    fmean(i) = mean(f(sel));
     p = N/sum(N)/step;
     [~,rms(i),n,Fplot,pdbell] = fitBell(TZIP,sel,0);
-    w = repmat(n/sum(n),numel(Fplot),1);
-    nexttile(i)
-    % plot(values,p,'k','LineWidth',1.5)
-    h(i+2,1) = bar(values,p,1,'FaceAlpha',0.5);
-    ylim([0,0.5])
-    xlim([4,55])
+    % w = repmat(n/sum(n),numel(Fplot),1);
+    nexttile
+    bar(values,p,1);
+    hold on;
+    plot(Fplot,pdbell,'r','LineWidth',1.5) 
+    text(14.5,0.55,sprintf('n = %d',sum(N)))
+    text(10.5,0.53,seltext{i},'FontName','Times New Roman','FontWeight', ...
+      'bold','HorizontalAlignment','center');    
+    ylim([0,0.6])
+    xlim([0,18])
     if i == 1
-      legend([h(1,1),h(3,1),h(1,2)],{'Rip experiment','Zip experiment','Rip Model'},'Location','NorthEast');
+      text(-3,0.58,'D','FontName','Times New Roman','FontSize',18, ...
+        'FontWeight','Bold');
     end
   end
 end

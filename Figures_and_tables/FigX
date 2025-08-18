@@ -1,4 +1,4 @@
-function Fig2A
+function FigX
 
   load Tables.mat TRIP TZIP  % 121 files
 
@@ -35,7 +35,7 @@ function Fig2A
   fprintf('%14s %8s   %12s\n','Temperature','Cluster','ΔG (kcal/mol)')  
 
   figure('Name','Fig2A');
-  tcl = tiledlayout(2,2,"TileSpacing","compact");
+  tcl = tiledlayout(2,4,"TileSpacing","compact");
   for i = 1:4
     [DG,DGstd] = fit_Crooks(TRIP,TZIP,selectionP(:,i),selectionR(:,i),clusters,Ttext(i),1);
 
@@ -55,7 +55,7 @@ function Fig2A
       fprintf('%14s %4d       %5.2f±%4.2f\n',"     ""     ",k,DG(k),DGstd(k));
     end
   end
-  title(tcl,'Crooks work histograms, normal pulling speed')
+  % title(tcl,'Crooks work histograms, normal pulling speed')
   xlabel(tcl,'Work (kcal/mol)')
   ylabel(tcl,'Probality density')
 end
