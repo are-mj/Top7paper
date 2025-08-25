@@ -187,12 +187,16 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     p.topforce = p.topforce*ones(length(p.force),1);
     p.cycleno = p.cycleno*ones(length(p.force),1);  
     nrp = length(p.ripx);
-    nzp = length(r.ripx);
-    for zpno = 1:nzp
-      r.work(zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno),r.temperature(zpno));
-    end
-    for rpno = 1:nrp
-      p.work(rpno,1) = Crooks_work(p.force(rpno),p.deltax(rpno),p.temperature(rpno));
+    if exist('r',"var")
+      nzp = length(r.ripx);
+      for zpno = 1:nzp
+        r.work(zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno),r.temperature(zpno));
+      end
+      for rpno = 1:nrp
+        p.work(rpno,1) = Crooks_work(p.force(rpno),p.deltax(rpno),p.temperature(rpno));
+      end
+    else
+      p.work = NaN;
     end
     % p.work = Crooks_work(p.force,p.deltax,p.temperature);
     p = trim_trace(p,par.deltaxlimits_rips);
