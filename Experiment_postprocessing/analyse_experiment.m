@@ -54,6 +54,7 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
 
   [peakpos,valleypos] = peaksandvalleys(f,par.threshold,par.lim,0);
   if isempty(peakpos) || isempty(valleypos)
+    fprintf("No peaks or valleys in Filename: %s\n",shortname)
     return
   end
 
@@ -197,6 +198,9 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     p = trim_trace(p,par.deltaxlimits_rips);
     pull = [pull;p];
     Trip = [Trip;create_table(p)];
+  end
+  if height(Trip)+height(Tzip) < 1
+    fprintf("No rips or zips found. Filename: %s\n",shortname);
   end
   if plotting
     figure;
