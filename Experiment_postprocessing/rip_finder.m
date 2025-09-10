@@ -77,7 +77,8 @@ function s = lookforrip(s,sgn,par)
     min_peak = max(sslope(10),par.minpeak_slope);
   else  % Use relax trace parameters. Scale by signal noise.
     % Skip first third of trace (refolding unlikely here)
-    slope = movingslope(f,max(round(n_points*0.03),2));
+    % slope = movingslope(f,max(round(n_points*0.03),2));
+    slope = movingslope(f,par.supportlength);
     dslope = detrend(slope);
     noise = movstd(f-smoothdata(f,1,'movmean',smoothwindow),stdwindow);
     mean_noise = mean(noise);
@@ -132,7 +133,9 @@ function s = lookforrip(s,sgn,par)
     s.pfx_a = s.pfx_a(okrips,:);
     s.fitrange = s.fitrange(okrips,:);
   else
-    [~,best] = max(fstep.*weight);
+    % [~,best] = max(fstep.*weight);
+    [~,best] = max(abs(fstep).*weight); % abs necessary for relaxing trace
+                           % This bug went undiscovered until Aug. 2025!!
     rip_index = rip_index(best);
     fstep = fstep(best);
     s.pfx_b = s.pfx_b(best,:);

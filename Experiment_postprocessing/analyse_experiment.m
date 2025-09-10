@@ -73,7 +73,7 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     x(rngrlx) = x(rngrlx) - min(x(rngrlx));
   end
   if peakpos(end)>valleypos(end)
-    rngpull = valleypos(end):peakpos(end);
+    rngpull = valleypos(end)+1:peakpos(end);  % Bug fix 20250907
     x(rngpull) = x(rngpull)-min(x(rngpull));   
   end  
 
@@ -97,15 +97,17 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     for zpno = 1:nzp
       r.work (zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno),r.temperature(zpno));
     end
-    r = trim_trace(r,par.deltaxlimits_zips);
+    r = trim_trace(r,par);
     relax = [relax;r];
     Tzip = [Tzip;create_table(r)];
   end
 
   for cycleno = 1:numel(valleypos)-1
     rng = valleypos(cycleno):valleypos(cycleno+1);
+    if sum(peakpos>valleypos(cycleno) & peakpos<valleypos(cycleno+1)) ~= 1
+      continue  % keep only cycles with exactly one peak
+    end
     [~,pkpos] = max(x(rng));
-    % [~,pkpos] = max(f(rng));
     if pkpos < 50 || numel(rng)-pkpos < 50
       continue  % skip very brief traces
     end
@@ -122,7 +124,8 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     p.topforce = repmat(p.f(end),[nrp,1]); 
     p.pullingspeed = repmat(median(diff(p.x)./diff(p.t)),[nrp,1]);     
     bad = p.force < 0;
-    if all(bad)
+    % if all(bad)  & Bug, because all([]) is true!
+    if ~isempty(bad) & all(bad)  % Corected 2025-09-05
       continue  % Skip this cycle
     else
       fn = string(fieldnames(p));
@@ -130,11 +133,13 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
         p.(fn(i))(bad,:) = [];
       end
       nrp = length(p.force);
-      for rpno = 1:nrp;
+      if nrp < 1
+        p.work = [];  % Bug fix 2025-09-05
+      end      
+      for rpno = 1:nrp
         p.work(rpno,1) = Crooks_work(p.force(rpno),p.deltax(rpno),p.temperature(rpno));
       end
     end    
-    nrp = length(p.ripx);
 
     % Initialise relaxation trace struct
     rlxrng = rng(pkpos+1:end);
@@ -149,7 +154,7 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     if par.laterips  
       p = laterip_trace(r,p,par);
     end
-    p = trim_trace(p,par.deltaxlimits_rips);
+    p = trim_trace(p,par);
     pull = [pull;p];
     Trip = [Trip;create_table(p)];
     
@@ -166,6 +171,7 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     relax = [relax;r];
     r.topforce = r.f(1)*ones(nzp,1);
     r.cycleno = cycleno*ones(nzp,1);
+    r = trim_trace(r,par);
     if ~isempty(r.force)
       Tzip = [Tzip;create_table(r)];
     end
@@ -198,8 +204,7 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     else
       p.work = NaN;
     end
-    % p.work = Crooks_work(p.force,p.deltax,p.temperature);
-    p = trim_trace(p,par.deltaxlimits_rips);
+    p = trim_trace(p,par);
     pull = [pull;p];
     Trip = [Trip;create_table(p)];
   end
@@ -229,14 +234,16 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
   end
 end
 
-function st = trim_trace(st,deltaxlim)
-% Remove structs from trace struct array st if st.deltax is not within
-% limits
-  if diff(deltaxlim) > 0
-    bad = st.deltax < deltaxlim(1) | st.deltax > deltaxlim(2);
-  else
-    bad = st.deltax > deltaxlim(1) | st.deltax < deltaxlim(2);
+function st = trim_trace(st,par)
+% Remove structs with unlikely variable values from trace struct 
+  bad = false;
+  if st.fdot > 0  % Pulling trace
+    deltaxlim = par.deltaxlimits_rips;
+  else  % Relaxing trace
+    deltaxlim = par.deltaxlimits_zips;
+    bad = bad | st.force > st.topforce*par.maxzipfactor;
   end
+  bad = bad | st.deltax < deltaxlim(1) | st.deltax > deltaxlim(2);
   if sum(bad)> 0
     fn = string(fieldnames(st));
     % The first five fields of st are not duplicated, so we start at 6
