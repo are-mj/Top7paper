@@ -49,9 +49,10 @@ function fmean = Fig1
     disp(max(p))
     hold on;
     plot(Fplot,max(w.*pdbell,[],2),'r','LineWidth',1.5);
-    text(45,0.1,sprintf('n = %d',sum(N)))
-    text(30,0.095,seltext{i},'FontName','Times New Roman','FontWeight', ...
+    % text(45,0.1,sprintf('n = %d',sum(N)))
+    text(32,0.095,seltext{i},'FontName','Times New Roman','FontWeight', ...
       'bold','HorizontalAlignment','center');
+    text(32,0.078,sprintf('n = %d',sum(N)),'HorizontalAlignment','center');
     ylim([0,0.11])
     xlim([4,55])
     if i == 1
@@ -72,7 +73,8 @@ function fmean = Fig1
   %   fprintf('%14s %14.2f              %.5f\n',Ttext(i),fmean(i),rms(i))
   % end
   pos = get(gcf,'position');
-  set(gcf,'Position',pos.*[0.1 1 2.7 1]);
+  % set(gcf,'Position',pos.*[0.1 1 2.7 1]);
+  set(gcf,'Position',pos.*[0.05 1 2.2 1]);
 
 % **************** ZIP *********************:
   load Tables.mat TZIP
@@ -110,8 +112,8 @@ function fmean = Fig1
     bar(values,p,1);
     hold on;
     plot(Fplot,pdbell,'r','LineWidth',1.5);
-    text(14.5,0.55,sprintf('n = %d',sum(N)))
-    text(10.5,0.53,seltext{i},'FontName','Times New Roman','FontWeight', ...
+    text(11,0.43,sprintf('n = %d',sum(N)),'HorizontalAlignment','center')
+    text(11,0.53,seltext{i},'FontName','Times New Roman','FontWeight', ...
       'bold','HorizontalAlignment','center');
     ylim([0,0.6])
     xlim([0,18])

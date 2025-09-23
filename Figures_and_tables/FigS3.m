@@ -7,13 +7,15 @@ function FigS3
     plot(TRIP.Deltax,TRIP.Force,'.','MarkerSize',4);
     hold on;
     plot(xx,wlc(xx,.65,290,29.96),'k');
+    text(6,51,sprintf('%d rips',height(TRIP)));
     title('A: Rips')
     xlabel('Δx (nm)'); ylabel('Force (pN)');
     xlim([5,30]);ylim([5,55])
   nexttile
     plot(-TZIP.Deltax,TZIP.Force,'.','MarkerSize',4);
     hold on;
-    plot(xx,wlc(xx,.65,290,29.96),'k');    
+    plot(xx,wlc(xx,.65,290,29.96),'k');   
+    text(2,14,sprintf('%d zips',height(TZIP)));
     title('B: Zips')
     xlabel('Δx (nm)'); ylabel('Force (pN)');
     ylim([3,15]); 
