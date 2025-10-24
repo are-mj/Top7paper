@@ -30,9 +30,16 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
       shortname = file; % Use full  path
     end
   else 
-    if isfile(fullfile(datafolder,file))
-      filename = file;
-      shortname = file;
+    stack = dbstack;
+    if isscalar(stack) == 1
+      folder = datafolder;
+    elseif strcmp(stack(2).file,'RipAnalysis.mlapp')
+      load RipAnalysis_settings appsettings
+      folder = appsettings.Datafolder;
+    end
+    filename = fullfile(folder,file);
+    if isfile(filename)
+      shortname = shorten_filename(filename);
     else
       error("File %s not found",file);
     end
@@ -51,12 +58,14 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
   bad = isnan(x) | isnan(f) | isnan(t);
   f(bad) = []; x(bad)=[]; t(bad) = [];
   [t,f,x,T] = remove_time_loops(t,f,x,T);
-
+  
   [peakpos,valleypos] = peaksandvalleys(f,par.threshold,par.lim,0);
   if isempty(peakpos) || isempty(valleypos)
     fprintf("No peaks or valleys in Filename: %s\n",shortname)
     return
   end
+  % Decimate time series if number of points per trace is too high:
+  [peakpos,valleypos,t,f,x,T] = decim(peakpos,valleypos,par,t,f,x,T);
 
   % analyse all traces for rips/zips
 
@@ -95,11 +104,14 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
       r.work = [];
     end
     for zpno = 1:nzp
-      r.work (zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno),r.temperature(zpno));
+      r.work (zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno),...
+        r.temperature(zpno),par);
     end
     r = trim_trace(r,par);
-    relax = [relax;r];
-    Tzip = [Tzip;create_table(r)];
+    if ~isempty(r.force)  
+      relax = [relax;r];
+      Tzip = [Tzip;create_table(r)];
+    end
   end
 
   for cycleno = 1:numel(valleypos)-1
@@ -137,7 +149,8 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
         p.work = [];  % Bug fix 2025-09-05
       end      
       for rpno = 1:nrp
-        p.work(rpno,1) = Crooks_work(p.force(rpno),p.deltax(rpno),p.temperature(rpno));
+        p.work(rpno,1) = Crooks_work(p.force(rpno),p.deltax(rpno), ...
+          p.temperature(rpno),par);
       end
     end    
 
@@ -155,8 +168,10 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
       p = laterip_trace(r,p,par);
     end
     p = trim_trace(p,par);
-    pull = [pull;p];
-    Trip = [Trip;create_table(p)];
+    if ~isempty(p.force)
+      pull = [pull;p];
+      Trip = [Trip;create_table(p)];
+    end
     
     % Zips in relaxing trace
     r = rip_finder(r,par);
@@ -166,13 +181,14 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     end
     r.pullingspeed = abs(median(diff(r.x)./diff(r.t)))*ones(nzp,1);
     for zpno = 1:nzp
-      r.work(zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno),r.temperature(zpno));
+      r.work(zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno), ...
+        r.temperature(zpno),par);
     end
-    relax = [relax;r];
     r.topforce = r.f(1)*ones(nzp,1);
     r.cycleno = cycleno*ones(nzp,1);
     r = trim_trace(r,par);
     if ~isempty(r.force)
+      relax = [relax;r];
       Tzip = [Tzip;create_table(r)];
     end
 
@@ -196,17 +212,20 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     if exist('r',"var")
       nzp = length(r.ripx);
       for zpno = 1:nzp
-        r.work(zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno),r.temperature(zpno));
+        r.work(zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno), ...
+          r.temperature(zpno),par);
       end
       for rpno = 1:nrp
-        p.work(rpno,1) = Crooks_work(p.force(rpno),p.deltax(rpno),p.temperature(rpno));
+        p.work(rpno,1) = Crooks_work(p.force(rpno),p.deltax(rpno),p.temperature(rpno),par);
       end
     else
       p.work = NaN;
     end
     p = trim_trace(p,par);
-    pull = [pull;p];
-    Trip = [Trip;create_table(p)];
+    if ~isempty(p.force)
+      pull = [pull;p];
+      Trip = [Trip;create_table(p)];
+    end
   end
   if height(Trip)+height(Tzip) < 1
     fprintf("No rips or zips found. Filename: %s\n",shortname);
