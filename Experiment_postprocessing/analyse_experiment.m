@@ -31,9 +31,8 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     end
   else 
     stack = dbstack;
-    if isscalar(stack) == 1
-      folder = datafolder;
-    elseif strcmp(stack(2).file,'RipAnalysis.mlapp')
+    folder = datafolder;
+    if ~isscalar(stack) & strcmp(stack(2).file,'RipAnalysis.mlapp')
       load RipAnalysis_settings appsettings
       folder = appsettings.Datafolder;
     end

@@ -1,7 +1,8 @@
-function W = Crooks_work(force,deltax,T)
+function W = Crooks_work(force,deltax,T,par)
 % Folding or unfolding work as in Fit_Crooks.m
 % 20250628: Interpret T < 150 as °C
-  P = 0.65;L0 = 29.28;  % WLC parameters for Top7
+  P = par.WLC_P;
+  L0 = par.WLC_L0;
   if T < 150
     T = T + 273.15;  % deg C to K
   end
@@ -28,9 +29,9 @@ function W = stretchwork(force,deltax,P,T,L0)
   x0 = 0;
   W = zeros(size(force));
   for i = 1:numel(force)
-    x1 = wlc_inverse(force(i),P,T(i),L0,simple);
+    x1 = wlc_inverse(force(i),P,T,L0,simple);
     scale = deltax(i)/x1;
-    fun = @(x) wlc(x,P,T(i),L0,simple);
+    fun = @(x) wlc(x,P,T,L0,simple);
     W(i) = integral(fun,x0,x1)*scale;
   end
 end
