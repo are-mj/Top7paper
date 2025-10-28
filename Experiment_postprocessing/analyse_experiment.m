@@ -195,35 +195,37 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
   % Handle pulling trace after last cycle:
   if peakpos(end) > valleypos(end)
     pullrng = valleypos(end):peakpos(end);
-    p.file = file;
-    p.t = t(pullrng);
-    p.f = f(pullrng);
-    p.x = x(pullrng);
-    p.T = T(pullrng);   
-    p.pullingspeed = 0;
-    p.cycleno = length(cycleno)+1;
-    p.topforce = p.f(end);
-    p = rip_finder(p,par);
-    p.pullingspeed = median(diff(p.x)./diff(p.t))*ones(length(p.force),1);
-    p.topforce = p.topforce*ones(length(p.force),1);
-    p.cycleno = p.cycleno*ones(length(p.force),1);  
-    nrp = length(p.ripx);
-    if exist('r',"var")
-      nzp = length(r.ripx);
-      for zpno = 1:nzp
-        r.work(zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno), ...
-          r.temperature(zpno),par);
+    if length(pullrng) > 40  % Eliminate unrealistically short ranges
+      p.file = file;
+      p.t = t(pullrng);
+      p.f = f(pullrng);
+      p.x = x(pullrng);
+      p.T = T(pullrng);   
+      p.pullingspeed = 0;
+      p.cycleno = length(cycleno)+1;
+      p.topforce = p.f(end);
+      p = rip_finder(p,par);
+      p.pullingspeed = median(diff(p.x)./diff(p.t))*ones(length(p.force),1);
+      p.topforce = p.topforce*ones(length(p.force),1);
+      p.cycleno = p.cycleno*ones(length(p.force),1);  
+      nrp = length(p.ripx);
+      if exist('r',"var")
+        nzp = length(r.ripx);
+        for zpno = 1:nzp
+          r.work(zpno,1) = Crooks_work(r.force(zpno),r.deltax(zpno), ...
+            r.temperature(zpno),par);
+        end
+        for rpno = 1:nrp
+          p.work(rpno,1) = Crooks_work(p.force(rpno),p.deltax(rpno),p.temperature(rpno),par);
+        end
+      else
+        p.work = NaN;
       end
-      for rpno = 1:nrp
-        p.work(rpno,1) = Crooks_work(p.force(rpno),p.deltax(rpno),p.temperature(rpno),par);
+      p = trim_trace(p,par);
+      if ~isempty(p.force)
+        pull = [pull;p];
+        Trip = [Trip;create_table(p)];
       end
-    else
-      p.work = NaN;
-    end
-    p = trim_trace(p,par);
-    if ~isempty(p.force)
-      pull = [pull;p];
-      Trip = [Trip;create_table(p)];
     end
   end
   if height(Trip)+height(Tzip) < 1
