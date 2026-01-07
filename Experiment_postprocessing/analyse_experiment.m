@@ -1,5 +1,5 @@
 function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(file,plotting,par)
-% Generalised version of analyse_experiment that identify multiple rips 
+% Generalised version of analyse_experiment that can identify multiple rips 
 % per trace and also late rips )i,e, rips in relaxing trace). 
 % To identfy multiple rips: set par.maxrips > 1
 % To identify late rips: set par.laterips = 1
@@ -28,8 +28,8 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
       shortname = extractAfter(file,n+1);
     else
       shortname = file; % Use full  path
-    end
-  else 
+    end 
+  else % Called from app
     stack = dbstack;
     folder = datafolder;
     if ~isscalar(stack) & strcmp(stack(2).file,'RipAnalysis.mlapp')
@@ -57,6 +57,7 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
   bad = isnan(x) | isnan(f) | isnan(t);
   f(bad) = []; x(bad)=[]; t(bad) = [];
   [t,f,x,T] = remove_time_loops(t,f,x,T);
+
   
   [peakpos,valleypos] = peaksandvalleys(f,par.threshold,par.lim,0);
   if isempty(peakpos) || isempty(valleypos)
@@ -64,8 +65,9 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     return
   end
   % Decimate time series if number of points per trace is too high:
-  [peakpos,valleypos,t,f,x,T] = decim(peakpos,valleypos,par,t,f,x,T);
+  [~,~,t,f,x,T] = decim(peakpos,valleypos,par,t,f,x,T);
 
+  [peakpos,valleypos] = peaksandvalleys(f,par.threshold,par.lim,0);
   % analyse all traces for rips/zips
 
   % valleyfirst = peakpos(1)>valleypos(1);
@@ -96,7 +98,7 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     r = rip_finder(r,par);
     nzp = length(r.ripx);
     r.cycleno = 0*ones(nzp,1);
-    r.pullingspeed = median(diff(r.x)./diff(r.t))*ones(nzp,1);
+    r.pullingspeed = abs(median(diff(r.x)./diff(r.t)))*ones(nzp,1);
     r.topforce = r.f(1)*ones(nzp,1);
     nzp = numel(r.force);
     if nzp < 1
@@ -133,8 +135,8 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
     nrp = length(p.force);
     p.cycleno = repmat(cycleno,[nrp,1]);
     p.topforce = repmat(p.f(end),[nrp,1]); 
-    p.pullingspeed = repmat(median(diff(p.x)./diff(p.t)),[nrp,1]);     
-    bad = p.force < 0;
+    p.pullingspeed = abs(median(diff(p.x)./diff(p.t)))*ones(nrp,1);    
+    bad = isempty(p.force) || p.force < 0;
     % if all(bad)  & Bug, because all([]) is true!
     if ~isempty(bad) & all(bad)  % Corected 2025-09-05
       continue  % Skip this cycle
@@ -195,7 +197,7 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
   % Handle pulling trace after last cycle:
   if peakpos(end) > valleypos(end)
     pullrng = valleypos(end):peakpos(end);
-    if length(pullrng) > 40  % Eliminate unrealistically short ranges
+    if length(pullrng) > 40  % Eliminate unrealisputically short ranges
       p.file = file;
       p.t = t(pullrng);
       p.f = f(pullrng);
@@ -205,7 +207,8 @@ function [Trip,Tzip,pull,relax,t,f,x,T,peakpos,valleypos] = analyse_experiment(f
       p.cycleno = length(cycleno)+1;
       p.topforce = p.f(end);
       p = rip_finder(p,par);
-      p.pullingspeed = median(diff(p.x)./diff(p.t))*ones(length(p.force),1);
+      nrp = length(p.force);
+      p.pullingspeed = abs(median(diff(p.x)./diff(p.t)))*ones(nrp,1);
       p.topforce = p.topforce*ones(length(p.force),1);
       p.cycleno = p.cycleno*ones(length(p.force),1);  
       nrp = length(p.ripx);

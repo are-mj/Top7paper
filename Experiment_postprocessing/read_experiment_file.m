@@ -32,16 +32,17 @@ function [t,f,x,T] = read_experiment_file(file,Tlist,detrend_x)
   if nargin < 2
     Tlist = [];
   end
-  % filename = fullfile(datafolder,file);
   % Allow file name containing full path
   if isfile(file)
     filename = file;
+  % elseif ~isnan(str2double(file))  % Index in Filelist.m
+  %   filename = app.files(str2double(file));
   else
     filename = fullfile(datafolder,file);
-    if ~isfile(filename)
-      error("File %p is not found",filename);
-    end
-  end  
+  end
+  if ~isfile(filename)
+    error("File %s is not found",filename);
+  end
   filename = strrep(filename,'\','/');  % Use Unix separator
   warning('off','MATLAB:table:ModifiedAndSavedVarnames');
   data = readtable(filename);
@@ -71,9 +72,10 @@ function [t,f,x,T] = read_experiment_file(file,Tlist,detrend_x)
     t = data.time_sec_;
   else
     cps = 4000;  % CycleCounts per second
-    countscol = contains(data.Properties.VariableNames,'CycleCount');
+    countscol = find(contains(data.Properties.VariableNames,'CycleCount'));
     if any(countscol)
-      t = data.CycleCount/cps;
+      % t = data.CycleCount/cps;
+      t = table2array(data(:,countscol))/cps;
     end    
   end
 
@@ -102,14 +104,12 @@ function [t,f,x,T] = read_experiment_file(file,Tlist,detrend_x)
     [Tbath,instrument] = T_from_COM(filename); % Temperature outside cell
     T = ones(size(t))*Tbath;
   catch
-    T = NaN*t;
-    return
+    T = 5*ones(size(t));  % Default bath temperature if COM file not found
   end
   if isempty(Tlist)  % Try reading from params.m
     if exist("params.m","file")
       par = params;
       if isfield(par,'Tlist') && isfield(par,"Instrumentname")
-        % instrumentno = find(contains(instrument,par.Instrumentname));
         instrumentno = find(strcmp(instrument,par.Instrumentname));
         if isempty(instrumentno)
           error('Unknown instrument: %s. Cannot determine temperature',instrument);

@@ -1,36 +1,39 @@
-function [TRIPL,TZIP] = analyse_many(files,plotting,par)
-% Analyses all experiments in files.  Compensates for calibration error in
-% September 2023.
-  if nargin < 2
-    plotting = 0;
-  end
-  if nargin < 3
-    par = params;
-  end
-  TRIPL = [];
-  TZIP = [];
-  for i = 1:numel(files)
-    [Trip,Tzip]  = analyse_experiment(files(i),plotting,par);
-    drawnow;
-    if isempty(Trip)
-      continue
+function [TRIP,TZIP] = analyse_many(files,plotting,par)
+% Anslyse list of files and concatenate results tables in TRIP and TZIP
+% Input:
+%   files: list of file names.  
+%          Either:  Full path and file name, starting with 'C:\'
+%          or:      Short name, such that fullfile(datafolder,file) gives
+%                   complete path and file
+%   plotting:  1 - plot results
+%              2 - plot temperature
+%              0 or absent:  Do not plot
+% SEE ALSO:: collect_tables.m
+
+if nargin < 3
+  par = params;
+end
+if nargin < 2
+  plotting = 0;
+end
+TRIP = [];
+TZIP = [];
+for i = 1:numel(files)
+  % try
+    [Trip,Tzip,pull,relax,t,f,x,T] = analyse_experiment(files(i),plotting,par);
+    if plotting == 2
+      figure; plot(t,T)
+      title(files(i));
     end
-    fprintf('Rips: %4d, Zips: %4d Filename: %s\n', ...
-      sum(Trip.Fdot>0),height(Tzip),files(i));
-    TRIPL = [TRIPL;Trip];
-    TZIP = [TZIP;Tzip];
+  % catch ME
+  %   rethrow(ME)
+  %   continue  % Skip files that give error
+  % end
+  TRIP =[TRIP;Trip];
+  TZIP = [TZIP;Tzip];
+  fprintf('Rips: %4d, Zips: %4d Filename: %s\n',height(Trip),height(Tzip),files(i));
+  if plotting
+    drawnow;
   end
-  TRIPL = correct_bias(TRIPL);
-  TZIP = correct_bias(TZIP);
 end
-
-function T = correct_bias(T)
-% Correct calibration error in Top7 experiments in August and September
-% Top7 experiment files from 2023-08-01 through 2023-09-16 suffer from 
-% calibration  error in Trapx.  Corret by multiplying deltax by 1.11
-
-% Remember to do this for both pull and relax tables
-
-  recalib = T.Filename > "20230800" & T.Filename < "20230916";
-  T.Deltax(recalib) = T.Deltax(recalib)*1.11;
-end
+  
