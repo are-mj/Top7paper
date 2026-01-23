@@ -48,7 +48,7 @@ function par = params
   par.Tlist{3} = [0 1 2 3 4 5 6 7 8;0 15 15 15 15 15 15 15 15];
   par.Tlist{4} = [0;0];
   par.Instrumentname = ["Tim's Gift 845-845 nm","SBS-tester 850-808", ...
-    "Steve202511","BlueMini"];
+    "SBS-tester 850-808  9V controller","BlueMini"];
   % These are the instruments in Christian's and Steve's labolratories,
   % respectively
 
